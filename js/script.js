@@ -1,5 +1,94 @@
 // Main JavaScript for Viet Su Ky Website
 document.addEventListener('DOMContentLoaded', function() {
+    // Scroll Animation Setup
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    // Create intersection observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                
+                // Add staggered animation for cards
+                if (entry.target.classList.contains('cards-container')) {
+                    const cards = entry.target.querySelectorAll('.card-item');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                        }, index * 100);
+                    });
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Observe all sections and elements for animation
+    const animatedElements = document.querySelectorAll(`
+        .features, .achievements, .feedback, .pricing,
+        .feature-card, .feedback-card, .pricing-card,
+        .achievements-text, .achievements-stats,
+        .feedback-header, .hero-content
+    `);
+
+    animatedElements.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+    });
+
+    // Add special classes for different animation types
+    document.querySelectorAll('.features-cards').forEach(el => {
+        el.classList.add('cards-container');
+        el.querySelectorAll('.feature-card').forEach(card => card.classList.add('card-item'));
+    });
+
+    document.querySelectorAll('.feedback-grid').forEach(el => {
+        el.classList.add('cards-container');
+        el.querySelectorAll('.feedback-card').forEach(card => card.classList.add('card-item'));
+    });
+
+    document.querySelectorAll('.pricing-grid').forEach(el => {
+        el.classList.add('cards-container');
+        el.querySelectorAll('.pricing-card').forEach(card => card.classList.add('card-item'));
+    });
+
+    // Parallax effect for hero section
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const heroBackground = document.querySelector('.hero-background');
+        const heroContent = document.querySelector('.hero-content');
+        
+        if (heroBackground) {
+            heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+        
+        ticking = false;
+    }
+    
+    function requestParallax() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestParallax);
+
+    // Smooth reveal for hero text
+    setTimeout(() => {
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.classList.add('hero-revealed');
+        }
+    }, 300);
+
     // Mobile menu toggle functionality
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -117,14 +206,162 @@ document.addEventListener('DOMContentLoaded', function() {
     // Header scroll effect
     const header = document.querySelector('.header');
     
+    // Create scroll progress indicator
+    const scrollIndicator = document.createElement('div');
+    scrollIndicator.className = 'scroll-indicator';
+    document.body.appendChild(scrollIndicator);
+    
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
+        const scrolled = window.pageYOffset;
+        const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrolled / maxHeight) * 100;
+        
+        scrollIndicator.style.transform = `scaleX(${progress / 100})`;
+        
+        // Header background effect
+        if (scrolled > 100) {
             header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
             header.style.backdropFilter = 'blur(10px)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
         } else {
             header.style.backgroundColor = 'white';
             header.style.backdropFilter = 'none';
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         }
+    });
+    
+    // Smooth scroll to top functionality
+    let scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.innerHTML = '↑';
+    scrollToTopBtn.className = 'scroll-to-top';
+    scrollToTopBtn.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: #d62829;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(214, 40, 41, 0.3);
+    `;
+    
+    document.body.appendChild(scrollToTopBtn);
+    
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+            scrollToTopBtn.style.opacity = '1';
+            scrollToTopBtn.style.transform = 'translateY(0)';
+        } else {
+            scrollToTopBtn.style.opacity = '0';
+            scrollToTopBtn.style.transform = 'translateY(20px)';
+        }
+    });
+    
+    scrollToTopBtn.addEventListener('mouseenter', () => {
+        scrollToTopBtn.style.transform = 'translateY(0) scale(1.1)';
+        scrollToTopBtn.style.boxShadow = '0 8px 25px rgba(214, 40, 41, 0.4)';
+    });
+    
+    scrollToTopBtn.addEventListener('mouseleave', () => {
+        scrollToTopBtn.style.transform = 'translateY(0) scale(1)';
+        scrollToTopBtn.style.boxShadow = '0 4px 15px rgba(214, 40, 41, 0.3)';
+    });
+
+    // Enhanced text reveal animation
+    const textRevealElements = document.querySelectorAll(`
+        .hero-title, .hero-subtitle, .hero-greeting,
+        .features-title, .achievements-title, .feedback-title h2, .pricing-title
+    `);
+    
+    textRevealElements.forEach(element => {
+        element.classList.add('text-reveal');
+        observer.observe(element);
+    });
+    
+    // Lazy loading for images
+    const images = document.querySelectorAll('img');
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('loaded');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => {
+        imageObserver.observe(img);
+    });
+    
+    // Add smooth reveal for page load
+    window.addEventListener('load', () => {
+        document.body.classList.add('page-loaded');
+    });
+    
+    // Enhanced scroll effects for different sections
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const section = entry.target;
+                
+                // Add specific effects for each section
+                if (section.classList.contains('achievements')) {
+                    // Trigger counter animation
+                    animateCounters();
+                    
+                    // Stagger stat items
+                    const statItems = section.querySelectorAll('.stat-item');
+                    statItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('animate-in');
+                        }, index * 100);
+                    });
+                }
+                
+                if (section.classList.contains('feedback')) {
+                    // Stagger feedback cards
+                    const feedbackCards = section.querySelectorAll('.feedback-card');
+                    feedbackCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                        }, index * 150);
+                    });
+                }
+                
+                if (section.classList.contains('pricing')) {
+                    // Stagger pricing cards
+                    const pricingCards = section.querySelectorAll('.pricing-card');
+                    pricingCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                        }, index * 100);
+                    });
+                }
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+    
+    // Observe sections for enhanced animations
+    document.querySelectorAll('.achievements, .feedback, .pricing').forEach(section => {
+        sectionObserver.observe(section);
     });
     
     // Auth button interactions
