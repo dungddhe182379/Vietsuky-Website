@@ -61,7 +61,6 @@ html {
 .btn-outline {
     background-color: transparent;
     color: #333;
-    border: 2px solid #333;
 }
 
 .btn-outline:hover {
@@ -414,6 +413,9 @@ html {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 60px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .feedback-title h2 {
@@ -435,6 +437,10 @@ html {
     background-color: white;
     color: #d62829;
     border: 2px solid white;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .feedback-header .btn:hover {
@@ -446,26 +452,42 @@ html {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .feedback-card {
-    background: white;
+    background: #FFFFFF;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+    position: relative;
+}
+
+.feedback-card:hover {
+    transform: translateY(-5px);
 }
 
 .feedback-text {
     font-size: 16px;
     color: #333;
     line-height: 1.6;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    flex-grow: 1;
 }
 
 .feedback-author {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #F0F0F0;
 }
 
 .author-info {
@@ -477,8 +499,20 @@ html {
 .author-avatar {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .author-name {
@@ -487,18 +521,27 @@ html {
 }
 
 .read-more {
-    background: none;
+    background-color: #F7F7F8;
     border: none;
-    color: #d62829;
-    font-weight: 600;
+    color: #262626;
+    font-weight: 500;
     cursor: pointer;
-    text-decoration: underline;
+    padding: 16px 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    background-color: #EEEEEE;
+    color: #000000;
 }
 
 /* Pricing Section */
 .pricing {
     padding: 100px 0;
-    background-color: white;
+    background-color: #F8F9FA;
 }
 
 .pricing-title {
@@ -512,43 +555,65 @@ html {
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 24px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .pricing-card {
     background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 15px;
-    padding: 40px 30px;
-    text-align: center;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .pricing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .pricing-card.featured {
     background-color: #d62829;
     color: white;
     border-color: #d62829;
+    transform: scale(1.05);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.05) translateY(-2px);
 }
 
 .plan-name {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.pricing-card.featured .plan-name {
+    color: white;
 }
 
 .plan-price {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    display: block;
+    line-height: 1.2;
 }
 
 .price {
-    font-size: 36px;
+    font-size: 20px;
+    color: #231D4F;
     font-weight: 700;
-    color: #d62829;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: baseline;
 }
 
 .pricing-card.featured .price {
@@ -556,62 +621,98 @@ html {
 }
 
 .period {
-    font-size: 18px;
-    color: #666;
+    font-size: 14px;
+    color: #6B7280;
+    font-weight: 400;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: baseline;
+    margin-left: 4px;
 }
 
 .pricing-card.featured .period {
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .plan-description {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.5;
+    font-size: 13px;
+    color: #6B7280;
+    margin-bottom: 20px;
+    line-height: 1.4;
 }
 
 .pricing-card.featured .plan-description {
-    color: white;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .pricing-features {
-    margin-bottom: 40px;
+    margin-bottom: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .feature {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    font-size: 14px;
+    gap: 8px;
+    margin-bottom: 0;
+    font-size: 12px;
 }
 
 .feature-icon {
     color: #d62829;
     font-weight: bold;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .pricing-card.featured .feature-icon {
     color: white;
 }
 
+.feature-text {
+    color: #374151;
+    line-height: 1.4;
+}
+
+.pricing-card.featured .feature-text {
+    color: white;
+}
+
 .pricing-btn {
     width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 550;
+    border-radius: 22px;
+    border: 0px solid #d62829;
+    background-color: #FBE9EA;
+    color: #d62829;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.pricing-btn:hover {
+    background-color: #d62829;
+    color: white;
 }
 
 .pricing-card.featured .pricing-btn {
     background-color: white;
     color: #d62829;
-    border: 2px solid white;
+    border: 1px solid white;
 }
 
 .pricing-card.featured .pricing-btn:hover {
-    background-color: transparent;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #d62829;
 }
 
 /* Responsive Design */
@@ -691,6 +792,45 @@ html {
     
     .pricing-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .pricing-card {
+        padding: 32px 24px;
+    }
+    
+    .pricing-card.featured {
+        transform: none;
+        border: 2px solid #d62829;
+    }
+    
+    .plan-name {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+    
+    .price {
+        font-size: 32px;
+        margin-bottom: 4px;
+    }
+    
+    .period {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .plan-description {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+    
+    .feature-text {
+        font-size: 13px;
+    }
+    
+    .pricing-btn {
+        padding: 14px 28px;
+        font-size: 15px;
     }
 }
 
@@ -853,7 +993,7 @@ html {
     }
     
     .pricing-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 }
@@ -992,16 +1132,29 @@ html {
     
     .feedback-card {
         padding: 20px;
+        min-height: 200px;
     }
     
     .feedback-text {
         font-size: 14px;
+        margin-bottom: 25px;
     }
     
     .feedback-author {
+        padding-top: 15px;
         flex-direction: column;
         gap: 15px;
         text-align: center;
+    }
+    
+    .author-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .read-more {
+        padding: 6px 12px;
+        font-size: 12px;
     }
     
     .pricing {
@@ -1014,26 +1167,41 @@ html {
     
     .pricing-card {
         padding: 30px 20px;
+        margin-bottom: 16px;
+    }
+    
+    .pricing-card.featured {
+        transform: none;
+        border: 2px solid #d62829;
     }
     
     .plan-name {
         font-size: 20px;
+        margin-bottom: 12px;
     }
     
     .price {
         font-size: 28px;
+        margin-bottom: 4px;
     }
     
     .period {
         font-size: 16px;
+        margin-bottom: 16px;
     }
     
     .plan-description {
         font-size: 14px;
+        margin-bottom: 24px;
     }
     
     .feature-text {
         font-size: 12px;
+    }
+    
+    .pricing-btn {
+        padding: 12px 24px;
+        font-size: 14px;
     }
 }
 
