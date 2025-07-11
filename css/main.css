@@ -10,12 +10,24 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f8fafd;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+}
+
+/* Prevent horizontal scrolling */
+html {
+    overflow-x: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Buttons */
@@ -30,6 +42,10 @@ body {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    min-height: 48px;
+    min-width: 120px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
@@ -54,6 +70,29 @@ body {
     transform: translateY(-2px);
 }
 
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover {
+        transform: none;
+    }
+    
+    .feature-card:hover {
+        transform: none;
+    }
+    
+    .pricing-card:hover {
+        transform: none;
+    }
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.nav-link:focus,
+.mobile-menu-toggle:focus {
+    outline: 2px solid #d62829;
+    outline-offset: 2px;
+}
+
 /* Header */
 .header {
     background-color: white;
@@ -72,8 +111,10 @@ body {
     padding: 15px 20px;
 }
 
-.logo img {
-    height: 50px;
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
 
 .logo-text {
@@ -96,6 +137,7 @@ body {
     padding: 10px 20px;
     border-radius: 8px;
     transition: all 0.3s ease;
+    font-size: 16px;
 }
 
 .nav-link.active {
@@ -113,14 +155,43 @@ body {
     gap: 15px;
 }
 
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    background: none;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
 /* Hero Section */
 .hero {
     position: relative;
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #7e0809 0%, #e40f10 100%);
+    background: linear-gradient(135deg, #cc1e1e 0%, #d62829 100%);
     overflow: hidden;
 }
 
@@ -133,14 +204,20 @@ body {
     background-image: url('../images/v1_39.png');
     background-size: cover;
     background-position: center;
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .hero-content {
-    text-align: center;
-    color: white;
-    z-index: 2;
     position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 240px;
+}
+
+.hero-text {
+    text-align: left;
+    color: white;
+    max-width: 800px;
 }
 
 .hero-greeting {
@@ -154,19 +231,21 @@ body {
     font-weight: 700;
     margin-bottom: 30px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1;
 }
 
 .hero-subtitle {
     font-size: 20px;
     font-weight: 500;
     max-width: 600px;
-    margin: 0 auto;
+    line-height: 1.4;
 }
 
 /* Features Section */
 .features {
     padding: 100px 0;
     background-color: rgba(252, 194, 74, 0.4);
+    overflow-x: hidden;
 }
 
 .features-content {
@@ -200,16 +279,23 @@ body {
 
 .features-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
+    justify-items: center;
 }
 
 .feature-card {
     background: white;
-    padding: 30px;
+    padding: 25px 20px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 280px;
+    width: 100%;
+    max-width: 350px;
 }
 
 .feature-card:hover {
@@ -217,23 +303,49 @@ body {
 }
 
 .feature-number {
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 500;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .feature-title {
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    line-height: 1.2;
 }
 
 .feature-description {
-    font-size: 14px;
+    font-size: 15px;
     color: #666;
-    line-height: 1.6;
+    line-height: 1.5;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    max-height: 180px;
+    scrollbar-width: thin;
+    scrollbar-color: #d62829 #f0f0f0;
+    margin-top: 5px;
+}
+
+.feature-description::-webkit-scrollbar {
+    width: 6px;
+}
+
+.feature-description::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+
+.feature-description::-webkit-scrollbar-thumb {
+    background: #d62829;
+    border-radius: 3px;
+}
+
+.feature-description::-webkit-scrollbar-thumb:hover {
+    background: #b21e1f;
 }
 
 /* Achievements Section */
@@ -497,9 +609,141 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 40px;
+    }
+    
+    .hero-content {
+        padding: 0 60px;
+    }
+    
+    .hero-title {
+        font-size: 120px;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .pricing-card:nth-child(3),
+    .pricing-card:nth-child(4) {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+    
+    .hero-content {
+        padding: 0 50px;
+    }
+    
+    .hero-title {
+        font-size: 100px;
+    }
+    
+    .features-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    
+    .features-content {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        text-align: center;
+    }
+    
+    .achievements-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .feedback-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .hero {
+        height: 80vh;
+    }
+    
     .hero-title {
         font-size: 80px;
+    }
+    
+    .hero-content {
+        padding: 0 20px;
+    }
+    
+    .hero-greeting {
+        font-size: 18px;
+    }
+    
+    .hero-subtitle {
+        font-size: 18px;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .nav-left {
+        gap: 20px;
+    }
+    
+    .header .container {
+        flex-wrap: wrap;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: -100%;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease;
+        padding: 20px 0;
+        z-index: 999;
+    }
+    
+    .nav-menu.mobile-active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+    }
+    
+    .auth-buttons {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .features {
+        padding: 60px 0;
     }
     
     .features-content {
@@ -507,45 +751,308 @@ body {
         gap: 40px;
     }
     
+    .features-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .features-title-small {
+        font-size: 24px;
+    }
+    
+    .features-title-large {
+        font-size: 40px;
+    }
+    
+    .features-description {
+        font-size: 18px;
+    }
+    
+    .achievements {
+        padding: 60px 0;
+    }
+    
     .achievements-content {
         grid-template-columns: 1fr;
         gap: 40px;
+        text-align: center;
+    }
+    
+    .achievements-title {
+        font-size: 40px;
+    }
+    
+    .achievements-description {
+        font-size: 18px;
     }
     
     .achievements-stats {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 48px;
+    }
+    
+    .stat-label {
+        font-size: 20px;
+    }
+    
+    .feedback {
+        padding: 60px 0;
     }
     
     .feedback-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
     
     .feedback-header {
         flex-direction: column;
         gap: 30px;
+        text-align: center;
     }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 60px;
+    
+    .feedback-title h2 {
+        font-size: 40px;
+    }
+    
+    .pricing {
+        padding: 60px 0;
+    }
+    
+    .pricing-title {
+        font-size: 40px;
     }
     
     .pricing-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
     }
     
-    .nav-menu {
-        flex-direction: column;
-        gap: 10px;
+    .hero {
+        height: 70vh;
+    }
+    
+    .hero-title {
+        font-size: 60px;
+    }
+    
+    .hero-content {
+        padding: 0 15px;
+    }
+    
+    .hero-greeting {
+        font-size: 16px;
+    }
+    
+    .hero-subtitle {
+        font-size: 16px;
     }
     
     .header .container {
+        padding: 10px 15px;
+    }
+    
+    .logo-text {
+        font-size: 20px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .auth-buttons {
         flex-direction: column;
-        gap: 20px;
+        gap: 8px;
+        width: 100%;
+    }
+    
+    .auth-buttons .btn {
+        width: 100%;
+    }
+    
+    .features {
+        padding: 40px 0;
+    }
+    
+    .features-title-small {
+        font-size: 20px;
+    }
+    
+    .features-title-large {
+        font-size: 32px;
+    }
+    
+    .features-description {
+        font-size: 16px;
+    }
+    
+    .feature-card {
+        padding: 20px 15px;
+        min-height: 250px;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .feature-number {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+    
+    .feature-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    .feature-description {
+        font-size: 13px;
+        max-height: 160px;
+        padding-right: 3px;
+    }
+    
+    .feature-description::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .achievements {
+        padding: 40px 0;
+    }
+    
+    .achievements-title {
+        font-size: 32px;
+    }
+    
+    .achievements-description {
+        font-size: 16px;
+    }
+    
+    .achievements-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 36px;
+    }
+    
+    .stat-label {
+        font-size: 18px;
+    }
+    
+    .feedback {
+        padding: 40px 0;
+    }
+    
+    .feedback-title h2 {
+        font-size: 32px;
+    }
+    
+    .feedback-title p {
+        font-size: 16px;
+    }
+    
+    .feedback-card {
+        padding: 20px;
+    }
+    
+    .feedback-text {
+        font-size: 14px;
+    }
+    
+    .feedback-author {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .pricing {
+        padding: 40px 0;
+    }
+    
+    .pricing-title {
+        font-size: 32px;
+    }
+    
+    .pricing-card {
+        padding: 30px 20px;
+    }
+    
+    .plan-name {
+        font-size: 20px;
+    }
+    
+    .price {
+        font-size: 28px;
+    }
+    
+    .period {
+        font-size: 16px;
+    }
+    
+    .plan-description {
+        font-size: 14px;
+    }
+    
+    .feature {
+        font-size: 12px;
+    }
+}
+
+/* Landscape orientation for tablets */
+@media (max-width: 1024px) and (orientation: landscape) {
+    .hero {
+        height: 100vh;
+    }
+    
+    .hero-title {
+        font-size: 90px;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-background {
+        background-image: url('../images/v1_39.png');
+        background-size: cover;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 400px) {
+    .features-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 100%;
+    }
+    
+    .feature-card {
+        padding: 15px 12px;
+        min-height: 220px;
+        max-width: 100%;
+    }
+    
+    .feature-number {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+    
+    .feature-title {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    
+    .feature-description {
+        font-size: 12px;
     }
 }

@@ -1,33 +1,5 @@
 // Main JavaScript for Viet Su Ky Website
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle functionality
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (mobileMenuToggle && navMenu) {
-        mobileMenuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('mobile-active');
-            this.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking on a link
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('mobile-active');
-                mobileMenuToggle.classList.remove('active');
-            });
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-menu') && !e.target.closest('.mobile-menu-toggle')) {
-                navMenu.classList.remove('mobile-active');
-                mobileMenuToggle.classList.remove('active');
-            }
-        });
-    }
-    
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-link');
     
