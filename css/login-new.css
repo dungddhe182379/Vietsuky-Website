@@ -122,6 +122,18 @@ body {
     margin-bottom: 15px; /* Giảm từ 20px xuống 15px */
 }
 
+/* Form Row for 2 columns */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
 .form-group label {
     display: block;
     font-size: 14px; /* Giảm từ 16px xuống 14px */
@@ -359,118 +371,71 @@ body {
     animation: spin 1s linear infinite;
 }
 
-/* Responsive Design */
-@media (max-width: 1600px) {
-    .login-container {
-        max-width: 100vw;
-        max-height: 100vh;
-    }
-    
-    .login-left {
-        padding: 40px 10px 40px 40px;
-        justify-content: flex-end;
-    }
-    
-    .login-right {
-        padding: 40px 40px 40px 10px;
-        justify-content: flex-start;
-    }
-    
-    .login-image {
-        max-width: 380px;
-        height: 550px; /* Tăng từ 500px lên 550px để tương ứng với desktop */
-    }
-    
-    .login-form-container {
-        max-width: 320px; /* Giảm từ 380px xuống 320px */
-    }
+/* Register page specific styles */
+body.register-page .login-right {
+    overflow-y: auto !important;
+    max-height: 100vh !important;
 }
 
-@media (max-width: 1200px) {
-    body {
-        overflow: auto; /* Cho phép scroll */
-    }
-    
-    .login-container {
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh;
-        overflow: visible; /* Cho phép nội dung tràn để scroll */
-    }
-    
-    .login-left {
-        display: none; /* Ẩn image ở breakpoint 1200px */
-    }
-    
-    .login-right {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        padding: 40px;
-        justify-content: center;
-        overflow: visible;
-    }
-    
-    .login-form-container {
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    
-    .login-logo {
-        margin: 0 auto 30px auto;
-    }
-    
-    .login-header h1 {
-        text-align: center;
-    }
-    
-    .login-header p {
-        text-align: center;
-    }
+body.register-page .login-logo {
+    margin-bottom: 15px !important; /* Giảm margin-bottom */
 }
 
+body.register-page .login-header {
+    margin-bottom: 15px !important; /* Giảm margin-bottom */
+}
+
+body.register-page .login-header h1 {
+    margin-bottom: 8px !important; /* Giảm margin-bottom */
+}
+
+body.register-page .login-header p {
+    margin-bottom: 12px !important; /* Giảm margin-bottom */
+}
+
+body.register-page .form-group {
+    margin-bottom: 12px !important; /* Giảm margin-bottom */
+}
+
+body.register-page .form-row {
+    margin-bottom: 12px !important; /* Giảm margin-bottom */
+}
+
+body.register-page .login-btn {
+    margin-top: 12px !important; /* Giảm margin-top */
+}
+
+body.register-page .social-login {
+    margin-top: 15px !important; /* Giảm margin-top */
+}
+
+/* Custom scrollbar for register page */
+body.register-page .login-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+body.register-page .login-right::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+body.register-page .login-right::-webkit-scrollbar-thumb {
+    background: #d62829;
+    border-radius: 3px;
+}
+
+body.register-page .login-right::-webkit-scrollbar-thumb:hover {
+    background: #b71c1c;
+}
+
+/* Responsive for register page */
 @media (max-width: 768px) {
-    body {
-        overflow: auto;
-    }
-    
-    .login-container {
-        overflow: visible;
-    }
-    
-    .login-left {
-        display: none;
-    }
-    
-    .login-right {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        padding: 40px 20px;
-        justify-content: center;
-        overflow: visible;
-    }
-    
-    .login-form-container {
-        max-width: 400px; /* Nhỏ hơn cho mobile */
-    }
-    
-    .login-header h1 {
-        font-size: 24px; /* Nhỏ hơn cho mobile */
-    }
-    
-    .login-header p {
-        font-size: 14px; /* Nhỏ hơn cho mobile */
-    }
-    
-    .social-buttons {
+    body.register-page .form-row {
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
     }
     
-    .social-btn {
-        width: 100%;
-        max-width: none;
-        height: 48px; /* Cao hơn cho mobile */
+    body.register-page .form-row .form-group {
+        margin-bottom: 8px;
     }
 }
