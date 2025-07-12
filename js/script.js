@@ -368,20 +368,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.querySelector('.auth-buttons .btn-primary');
     const signupBtn = document.querySelector('.auth-buttons .btn-outline');
     
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Chức năng đăng nhập sẽ được phát triển sớm!');
-        });
-    }
-    
-    if (signupBtn) {
-        signupBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Chức năng đăng ký sẽ được phát triển sớm!');
-        });
-    }
-    
     // View All feedback button
     const viewAllBtn = document.querySelector('.feedback-header .btn');
     
