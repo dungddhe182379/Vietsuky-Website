@@ -9,12 +9,23 @@ class PageTransition {
         // Reset navigation state
         this.isNavigating = false;
         
+        // Check if this is a back/forward navigation
+        const isBackForwardNavigation = window.performance && 
+            window.performance.navigation && 
+            window.performance.navigation.type === 2;
+        
         // Check if we're coming from a navigation
         const isFromNavigation = sessionStorage.getItem('isNavigating');
         const navigationStartTime = sessionStorage.getItem('navigationStartTime');
         
-        if (isFromNavigation === 'true') {
-            // We're coming from navigation
+        // If it's back/forward navigation, always hide loader immediately
+        if (isBackForwardNavigation) {
+            sessionStorage.removeItem('isNavigating');
+            sessionStorage.removeItem('navigationStartTime');
+            this.hideLoaderImmediately();
+            this.isNavigating = false;
+        } else if (isFromNavigation === 'true') {
+            // We're coming from navigation (not back/forward)
             sessionStorage.removeItem('isNavigating');
             sessionStorage.removeItem('navigationStartTime');
             
@@ -256,6 +267,16 @@ class PageTransition {
 
 // Initialize page transitions
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if this is a page reload or back navigation
+    const isPageReload = window.performance.navigation.type === 1; // TYPE_RELOAD
+    const isBackForward = window.performance.navigation.type === 2; // TYPE_BACK_FORWARD
+    
+    // For page reload or back/forward, always clear navigation state
+    if (isPageReload || isBackForward) {
+        sessionStorage.removeItem('isNavigating');
+        sessionStorage.removeItem('navigationStartTime');
+    }
+    
     // Clear any stuck navigation state on fresh page load
     const lastNavigation = sessionStorage.getItem('navigationStartTime');
     if (lastNavigation) {
@@ -271,6 +292,35 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         window.pageTransitionInstance = new PageTransition();
     }, 200);
+});
+
+// Handle browser back/forward navigation
+window.addEventListener('popstate', (event) => {
+    // Clear navigation state when using back/forward buttons
+    sessionStorage.removeItem('isNavigating');
+    sessionStorage.removeItem('navigationStartTime');
+    
+    // Hide loader immediately if it's showing
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        loader.style.display = 'none';
+    }
+    
+    // Show page content immediately
+    const pageContent = document.querySelector('.page-content');
+    if (pageContent) {
+        pageContent.classList.add('show');
+        pageContent.style.opacity = '1';
+        pageContent.style.transform = 'translateY(0)';
+    }
+    
+    // Ensure body is visible
+    document.body.style.opacity = '1';
+    
+    // Reset navigation state
+    if (window.pageTransitionInstance) {
+        window.pageTransitionInstance.isNavigating = false;
+    }
 });
 
 // Fallback navigation for critical links (in case of conflicts)

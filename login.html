@@ -9,6 +9,24 @@
         rel="stylesheet" />
     <link href="css/login-new.css" rel="stylesheet" />
     <link href="css/page-transition.css" rel="stylesheet" />
+    <script>
+        // Immediate loader hide for back navigation
+        if (window.performance && window.performance.navigation.type === 2) {
+            // This is back/forward navigation - hide loader immediately
+            document.addEventListener('DOMContentLoaded', function() {
+                const loader = document.getElementById('pageLoader');
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+                const pageContent = document.querySelector('.page-content');
+                if (pageContent) {
+                    pageContent.style.opacity = '1';
+                    pageContent.style.transform = 'translateY(0)';
+                }
+                document.body.style.opacity = '1';
+            });
+        }
+    </script>
     <style></style>
 </head>
 
