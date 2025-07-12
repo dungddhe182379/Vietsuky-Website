@@ -86,7 +86,7 @@
                     </form>
 
                     <!-- Social Login -->
-                    <div class="social-login">
+                    <!-- <div class="social-login">
                         <div class="divider">
                             <span>Hoặc đăng nhập bằng</span>
                         </div>
@@ -131,7 +131,7 @@
                         <span style="color: #666;">Chưa có tài khoản? </span>
                         <a href="register.html" data-navigate="register"
                             style="color: #d62829; text-decoration: none; font-weight: 500;">Đăng ký ngay</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -232,24 +232,57 @@
             }
         });
         
-        function showMessage(message, type) {
+        function showMessage(message, type, persistent = false) {
             // Create message element
             const messageEl = document.createElement('div');
             messageEl.className = `message ${type}`;
             messageEl.textContent = message;
+            
+            // Define colors based on type
+            let backgroundColor, borderColor;
+            switch(type) {
+                case 'success':
+                    backgroundColor = '#28a745'; // Bootstrap success green
+                    borderColor = '#1e7e34';
+                    break;
+                case 'error':
+                    backgroundColor = '#dc3545'; // Bootstrap danger red
+                    borderColor = '#bd2130';
+                    break;
+                case 'info':
+                    backgroundColor = '#17a2b8'; // Bootstrap info blue
+                    borderColor = '#117a8b';
+                    break;
+                default:
+                    backgroundColor = '#6c757d'; // Bootstrap secondary gray
+                    borderColor = '#545b62';
+            }
+            
             messageEl.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                background: ${backgroundColor};
                 color: white;
                 padding: 15px 20px;
                 border-radius: 8px;
+                border-left: 4px solid ${borderColor};
                 font-weight: 500;
                 z-index: 10000;
                 transform: translateX(100%);
                 transition: transform 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                max-width: 300px;
+                word-wrap: break-word;
             `;
+            
+            // Check if there are existing messages and stack them
+            const existingMessages = document.querySelectorAll('.message');
+            if (existingMessages.length > 0) {
+                // Stack new message below existing ones
+                const topOffset = 20 + (existingMessages.length * 80); // 80px spacing between messages
+                messageEl.style.top = topOffset + 'px';
+            }
             
             document.body.appendChild(messageEl);
             
@@ -258,15 +291,31 @@
                 messageEl.style.transform = 'translateX(0)';
             }, 100);
             
-            // Remove after 3 seconds
-            setTimeout(() => {
-                messageEl.style.transform = 'translateX(100%)';
+            // Remove after 2 seconds (only if not persistent)
+            if (!persistent) {
                 setTimeout(() => {
-                    if (document.body.contains(messageEl)) {
-                        document.body.removeChild(messageEl);
-                    }
-                }, 300);
-            }, 3000);
+                    messageEl.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (document.body.contains(messageEl)) {
+                            document.body.removeChild(messageEl);
+                            // Reposition remaining messages
+                            repositionMessages();
+                        }
+                    }, 300);
+                }, 2000);
+            }
+            
+            // Return the message element for updating content
+            return messageEl;
+        }
+        
+        // Function to reposition messages after one is removed
+        function repositionMessages() {
+            const messages = document.querySelectorAll('.message');
+            messages.forEach((msg, index) => {
+                const topOffset = 20 + (index * 80);
+                msg.style.top = topOffset + 'px';
+            });
         }
 
         // Start timer when page loads

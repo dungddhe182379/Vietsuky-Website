@@ -69,7 +69,7 @@
                     </div>
 
                     <!-- Form -->
-                    <form class="login-form" id="registerForm" data-navigate-to="login.html">
+                    <form class="login-form" id="registerForm">
                         <div class="form-group">
                             <label for="fullName">Họ và tên</label>
                             <input type="text" id="fullName" name="fullName" required>
@@ -188,35 +188,165 @@
         }
 
         // Form validation and submission
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
             
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const terms = document.getElementById('terms').checked;
-            
-            // Validate passwords match
-            if (password !== confirmPassword) {
-                alert('Mật khẩu và xác nhận mật khẩu không khớp!');
-                return;
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent any event bubbling
+                
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const terms = document.getElementById('terms').checked;
+                const submitBtn = this.querySelector('button[type="submit"]');
+                
+                // Validate passwords match
+                if (password !== confirmPassword) {
+                    showMessage('Mật khẩu và xác nhận mật khẩu không khớp!', 'error');
+                    return;
+                }
+                
+                // Validate password strength
+                if (password.length < 6) {
+                    showMessage('Mật khẩu phải có ít nhất 6 ký tự!', 'error');
+                    return;
+                }
+                
+                // Validate terms acceptance
+                if (!terms) {
+                    showMessage('Bạn cần đồng ý với điều khoản và chính sách bảo mật!', 'error');
+                    return;
+                }
+                
+                // Loading state
+                submitBtn.classList.add('btn-loading');
+                submitBtn.innerHTML = '<span>Đang đăng ký...</span>';
+                submitBtn.disabled = true; // Disable button to prevent multiple clicks
+                
+                // Simulate API call
+                setTimeout(() => {
+                    showMessage('Đăng ký thành công!', 'success');
+                    
+                    // Reset button state
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.innerHTML = 'Tạo tài khoản ík';
+                    submitBtn.disabled = false;
+                    
+                    // Show email verification message with countdown
+                    setTimeout(() => {
+                        let countdown = 5;
+                        const countdownMessage = showMessage(`Vui lòng kiểm tra email để xác thực tài khoản. Sẽ quay về trang đăng nhập trong ${countdown} giây...`, 'info', true); // true = persistent
+                        
+                        const countdownInterval = setInterval(() => {
+                            countdown--;
+                            
+                            if (countdown > 0) {
+                                // Update the same message content
+                                countdownMessage.textContent = `Vui lòng kiểm tra email để xác thực tài khoản. Sẽ quay về trang đăng nhập trong ${countdown} giây...`;
+                            } else {
+                                clearInterval(countdownInterval);
+                                // Remove countdown message and redirect
+                                if (document.body.contains(countdownMessage)) {
+                                    countdownMessage.style.transform = 'translateX(100%)';
+                                    setTimeout(() => {
+                                        if (document.body.contains(countdownMessage)) {
+                                            document.body.removeChild(countdownMessage);
+                                        }
+                                    }, 300);
+                                }
+                                window.location.href = 'login.html';
+                            }
+                        }, 1000);
+                    }, 2500); // Wait for success message to finish (2s + buffer)
+                }, 2000);
+            });
+
+            // Show message function with queue system
+            function showMessage(message, type, persistent = false) {
+                // Create message element
+                const messageEl = document.createElement('div');
+                messageEl.className = `message ${type}`;
+                messageEl.textContent = message;
+                
+                // Define colors based on type
+                let backgroundColor, borderColor;
+                switch(type) {
+                    case 'success':
+                        backgroundColor = '#28a745'; // Bootstrap success green
+                        borderColor = '#1e7e34';
+                        break;
+                    case 'error':
+                        backgroundColor = '#dc3545'; // Bootstrap danger red
+                        borderColor = '#bd2130';
+                        break;
+                    case 'info':
+                        backgroundColor = '#17a2b8'; // Bootstrap info blue
+                        borderColor = '#117a8b';
+                        break;
+                    default:
+                        backgroundColor = '#6c757d'; // Bootstrap secondary gray
+                        borderColor = '#545b62';
+                }
+                
+                messageEl.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${backgroundColor};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    border-left: 4px solid ${borderColor};
+                    font-weight: 500;
+                    z-index: 10000;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    max-width: 300px;
+                    word-wrap: break-word;
+                `;
+                
+                // Check if there are existing messages and stack them
+                const existingMessages = document.querySelectorAll('.message');
+                if (existingMessages.length > 0) {
+                    // Stack new message below existing ones
+                    const topOffset = 20 + (existingMessages.length * 80); // 80px spacing between messages
+                    messageEl.style.top = topOffset + 'px';
+                }
+                
+                document.body.appendChild(messageEl);
+                
+                // Animate in
+                setTimeout(() => {
+                    messageEl.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Remove after 2 seconds (only if not persistent)
+                if (!persistent) {
+                    setTimeout(() => {
+                        messageEl.style.transform = 'translateX(100%)';
+                        setTimeout(() => {
+                            if (document.body.contains(messageEl)) {
+                                document.body.removeChild(messageEl);
+                                // Reposition remaining messages
+                                repositionMessages();
+                            }
+                        }, 300);
+                    }, 2000);
+                }
+                
+                // Return the message element for updating content
+                return messageEl;
             }
             
-            // Validate password strength
-            if (password.length < 6) {
-                alert('Mật khẩu phải có ít nhất 6 ký tự!');
-                return;
+            // Function to reposition messages after one is removed
+            function repositionMessages() {
+                const messages = document.querySelectorAll('.message');
+                messages.forEach((msg, index) => {
+                    const topOffset = 20 + (index * 80);
+                    msg.style.top = topOffset + 'px';
+                });
             }
-            
-            // Validate terms acceptance
-            if (!terms) {
-                alert('Bạn cần đồng ý với điều khoản và chính sách bảo mật!');
-                return;
-            }
-            
-            // Success message
-            alert('Đăng ký thành công! Chuyển sang trang đăng nhập...');
-            
-            // The form will be handled by the navigation system
         });
     </script>
     <script src="js/page-transition.js"></script>
