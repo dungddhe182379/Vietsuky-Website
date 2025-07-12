@@ -1147,7 +1147,7 @@ img.loaded {
     
     .nav-menu {
         position: fixed;
-        top: 100%;
+        top: 70px;
         left: -100%;
         width: 100%;
         background-color: white;
@@ -1155,7 +1155,9 @@ img.loaded {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         transition: left 0.3s ease;
         padding: 20px 0;
-        z-index: 999;
+        z-index: 1001;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
     }
     
     .nav-menu.mobile-active {
@@ -1349,7 +1351,7 @@ img.loaded {
     
     .nav-menu {
         position: fixed;
-        top: 100%;
+        top: 70px;
         left: -100%;
         width: 100%;
         background-color: white;
@@ -1357,7 +1359,9 @@ img.loaded {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         transition: left 0.3s ease;
         padding: 20px 0;
-        z-index: 999;
+        z-index: 1001;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
     }
     
     .nav-menu.mobile-active {
