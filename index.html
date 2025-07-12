@@ -23,6 +23,7 @@
                     pageContent.style.opacity = '1';
                     pageContent.style.transform = 'translateY(0)';
                 }
+                // Header will be handled by script.js
                 document.body.style.opacity = '1';
             });
         }
@@ -45,41 +46,42 @@
         </div>
     </div>
 
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Việt Sử Ký Logo" class="logo-image">
+                </div>
+                <nav class="nav">
+                    <ul class="nav-menu">
+                        <li><a href="#" class="nav-link active">Trang chủ</a></li>
+                        <li><a href="#courses" class="nav-link">Khoá học</a></li>
+                        <li><a href="#pricing" class="nav-link">Chi phí</a></li>
+                        <li><a href="#about" class="nav-link">Về chúng tôi</a></li>
+                        <li><a href="#contact" class="nav-link">Liên hệ</a></li>
+                        <!-- Mobile Auth Buttons -->
+                        <li class="mobile-auth-buttons">
+                            <button data-navigate="register" class="btn btn-outline">Sign Up</button>
+                            <a href="login.html" class="btn btn-primary" data-navigate="login">Login</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="auth-buttons">
+                <button data-navigate="register"  class="btn btn-outline">Sign Up</button>
+                <a href="login.html" class="btn btn-primary" data-navigate="login">Login</a>
+            </div>
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
     <!-- Page Content -->
     <div class="page-content">
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="nav-left">
-                    <div class="logo">
-                        <img src="images/logo.png" alt="Việt Sử Ký Logo" class="logo-image">
-                    </div>
-                    <nav class="nav">
-                        <ul class="nav-menu">
-                            <li><a href="#" class="nav-link active">Trang chủ</a></li>
-                            <li><a href="#courses" class="nav-link">Khoá học</a></li>
-                            <li><a href="#pricing" class="nav-link">Chi phí</a></li>
-                            <li><a href="#about" class="nav-link">Về chúng tôi</a></li>
-                            <li><a href="#contact" class="nav-link">Liên hệ</a></li>
-                            <!-- Mobile Auth Buttons -->
-                            <li class="mobile-auth-buttons">
-                                <button data-navigate="register" class="btn btn-outline">Sign Up</button>
-                                <a href="login.html" class="btn btn-primary" data-navigate="login">Login</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="auth-buttons">
-                    <button data-navigate="register"  class="btn btn-outline">Sign Up</button>
-                    <a href="login.html" class="btn btn-primary" data-navigate="login">Login</a>
-                </div>
-                <button class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </header>
 
         <!-- Hero Section -->
         <section class="hero">

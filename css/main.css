@@ -170,8 +170,13 @@ html {
 
 /* Header scroll effect */
 .header {
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.6s ease-out;
+    /* Header Animation for page load */
+    opacity: 0;
+    transform: translateY(-20px);
 }
+
+/* Header will be shown via JavaScript in script.js */
 
 /* Enhanced hover effects */
 .feature-card {
@@ -1065,11 +1070,20 @@ img.loaded {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease-out;
+    padding-top: 80px; /* Add padding to account for fixed header */
 }
 
 .page-content.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Direct page load - no transition */
+.page-content.direct-load {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+    padding-top: 80px; /* Maintain padding for direct load */
 }
 
 @keyframes fadeInUp {

@@ -141,10 +141,16 @@ class PageTransition {
 
         // Show page content
         const pageContent = document.querySelector('.page-content');
+        
         if (pageContent) {
             pageContent.classList.add('show');
             pageContent.style.opacity = '1';
             pageContent.style.transform = 'translateY(0)';
+        }
+        
+        // Show header using script.js function
+        if (window.showHeader) {
+            window.showHeader();
         }
         
         // Ensure body is visible
@@ -159,10 +165,16 @@ class PageTransition {
 
         // Show page content immediately
         const pageContent = document.querySelector('.page-content');
+        
         if (pageContent) {
             pageContent.classList.add('show');
             pageContent.style.opacity = '1';
             pageContent.style.transform = 'translateY(0)';
+        }
+        
+        // Show header using script.js function
+        if (window.showHeader) {
+            window.showHeader();
         }
         
         // Ensure body is visible
@@ -312,6 +324,11 @@ window.addEventListener('popstate', (event) => {
         pageContent.classList.add('show');
         pageContent.style.opacity = '1';
         pageContent.style.transform = 'translateY(0)';
+    }
+    
+    // Show header using script.js function
+    if (window.showHeader) {
+        window.showHeader();
     }
     
     // Ensure body is visible

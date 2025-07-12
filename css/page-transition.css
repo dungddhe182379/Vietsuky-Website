@@ -162,25 +162,6 @@
     }
 }
 
-/* Page Content Animation */
-.page-content {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-}
-
-.page-content.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Direct page load - no transition */
-.page-content.direct-load {
-    opacity: 1;
-    transform: translateY(0);
-    transition: none;
-}
-
 /* Button Loading States */
 .btn-loading {
     position: relative;

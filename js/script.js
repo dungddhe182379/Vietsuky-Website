@@ -1,5 +1,40 @@
 // Main JavaScript for Viet Su Ky Website
 document.addEventListener('DOMContentLoaded', function() {
+    // Header Animation Management
+    function initHeaderAnimation() {
+        const header = document.querySelector('.header');
+        if (header) {
+            // Check if we need to show header immediately (back navigation)
+            const isBackForwardNavigation = window.performance && 
+                window.performance.navigation && 
+                window.performance.navigation.type === 2;
+                
+            if (isBackForwardNavigation) {
+                // Show header immediately for back navigation
+                header.style.opacity = '1';
+                header.style.transform = 'translateY(0)';
+            } else {
+                // Animate header in after a short delay
+                setTimeout(() => {
+                    header.style.opacity = '1';
+                    header.style.transform = 'translateY(0)';
+                }, 200);
+            }
+        }
+    }
+
+    // Initialize header animation
+    initHeaderAnimation();
+
+    // Export function for page transition to use
+    window.showHeader = function() {
+        const header = document.querySelector('.header');
+        if (header) {
+            header.style.opacity = '1';
+            header.style.transform = 'translateY(0)';
+        }
+    };
+
     // Scroll Animation Setup
     const observerOptions = {
         threshold: 0.1,
