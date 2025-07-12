@@ -225,6 +225,74 @@ body {
     text-decoration: underline;
 }
 
+/* Form Actions - for forgot password page */
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.back-to-login {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #d62829;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-to-login:hover {
+    color: #b91e24;
+    text-decoration: none;
+}
+
+.back-to-login svg {
+    transition: transform 0.3s ease;
+}
+
+.back-to-login:hover svg {
+    transform: translateX(-2px);
+}
+
+/* Verification Info - for verification code page */
+.verification-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.verification-info p {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+}
+
+.verification-info span {
+    color: #d62829;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.verification-info span:hover {
+    color: #b91e24;
+}
+
+/* Verification Code Input Styling */
+#verification-code {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+#verification-code::placeholder {
+    letter-spacing: 8px;
+    opacity: 0.5;
+}
+
 /* Login Button */
 .login-btn {
     width: 100%;

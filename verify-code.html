@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Đăng nhập - Việt Sử Ký</title>
+    <title>Nhập mã xác thực - Việt Sử Ký</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="css/login-new.css" rel="stylesheet" />
@@ -27,7 +27,6 @@
             });
         }
     </script>
-    <style></style>
 </head>
 
 <body>
@@ -67,40 +66,23 @@
 
                     <!-- Header -->
                     <div class="login-header">
-                        <h1>Rất vui được gặp lại bạn!</h1>
-                        <p>Đăng nhập vào tài khoản đã tạo</p>
+                        <h1>Code nè nhập đi má</h1>
+                        <p>Code gửi qua gmail ùi</p>
                     </div>
 
                     <!-- Form -->
-                    <form class="login-form" id="loginForm" data-navigate-to="index.html">
+                    <form class="login-form" id="verificationForm">
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="verification-code">Nhập Code</label>
+                            <input type="text" id="verification-code" name="verificationCode" maxlength="6" 
+                                   placeholder="000000" pattern="[0-9]{6}" required autocomplete="one-time-code">
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">Mật khẩu</label>
-                            <div class="password-input">
-                                <input type="password" id="password" name="password" required>
-                                <button type="button" class="toggle-password" onclick="togglePassword()">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                        <path
-                                            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-                                            fill="#303030" />
-                                    </svg>
-                                </button>
-                            </div>
+                        <div class="verification-info">
+                            <p>Không nhận được 6? <span id="resend-timer">Gửi lại (60s)</span></p>
                         </div>
 
-                        <div class="form-options">
-                            <div class="remember-me">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember">Ghi nhớ tui</label>
-                            </div>
-                            <a href="forgot-password.html" data-navigate="forgot-password" class="forgot-password">Quên mật khẩu ròi</a>
-                        </div>
-
-                        <button type="submit" class="login-btn">Đăng nhập dùm</button>
+                        <button type="submit" class="login-btn">Gửi nè</button>
                     </form>
 
                     <!-- Social Login -->
@@ -144,6 +126,7 @@
                             </button>
                         </div>
                     </div>
+                    
                     <div style="text-align: center; margin-top: 20px;">
                         <span style="color: #666;">Chưa có tài khoản? </span>
                         <a href="register.html" data-navigate="register"
@@ -155,30 +138,144 @@
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleBtn = document.querySelector('.toggle-password');
+        let resendTimer = 60;
+        let timerInterval;
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleBtn.innerHTML = `
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-4.39 3.43-6.25-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" fill="#303030"/>
-                    </svg>
-                `;
-            } else {
-                passwordInput.type = 'password';
-                toggleBtn.innerHTML = `
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="#303030"/>
-                    </svg>
-                `;
-            }
+        // Start countdown timer
+        function startResendTimer() {
+            const timerElement = document.getElementById('resend-timer');
+            resendTimer = 60;
+            
+            timerInterval = setInterval(() => {
+                resendTimer--;
+                if (resendTimer > 0) {
+                    timerElement.textContent = `Gửi lại (${resendTimer}s)`;
+                    timerElement.style.color = '#666';
+                    timerElement.style.cursor = 'default';
+                } else {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = 'Gửi lại';
+                    timerElement.style.color = '#d62829';
+                    timerElement.style.cursor = 'pointer';
+                    timerElement.onclick = resendCode;
+                }
+            }, 1000);
         }
+
+        // Resend verification code
+        function resendCode() {
+            if (resendTimer > 0) return;
+            
+            showMessage('Mã xác thực mới đã được gửi!', 'success');
+            startResendTimer();
+        }
+
+        // Handle form submission
+        document.getElementById('verificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const code = document.getElementById('verification-code').value;
+            const submitBtn = this.querySelector('button[type="submit"]');
+            
+            // Validate code format
+            if (!/^\d{6}$/.test(code)) {
+                showMessage('Mã xác thực phải có 6 chữ số!', 'error');
+                return;
+            }
+            
+            // Add loading state
+            submitBtn.classList.add('btn-loading');
+            submitBtn.innerHTML = '<span>Đang xác thực...</span>';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Simulate success/failure (90% success rate)
+                const isSuccess = true;
+                
+                if (isSuccess) {
+                    showMessage('Xác thực thành công!', 'success');
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Redirect to new password page after 1.5 seconds
+                    setTimeout(() => {
+                        // Simple navigation without transition system
+                        window.location.href = 'newpassword.html';
+                    }, 1000);
+                } else {
+                    showMessage('Mã xác thực không đúng!', 'error');
+                }
+                
+                // Remove loading state
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.innerHTML = 'Gửi nè';
+            }, 1500); // Reduced from 2000 to 1500
+        });
+
+        // Auto-format input (only numbers)
+        document.getElementById('verification-code').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+            if (value.length > 6) {
+                value = value.substring(0, 6);
+            }
+            e.target.value = value;
+        });
+
+        // Auto-submit when 6 digits are entered
+        document.getElementById('verification-code').addEventListener('input', function(e) {
+            if (e.target.value.length === 6) {
+                // Small delay to show the complete code
+                setTimeout(() => {
+                    document.getElementById('verificationForm').dispatchEvent(new Event('submit'));
+                }, 500);
+            }
+        });
+        
+        function showMessage(message, type) {
+            // Create message element
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${type}`;
+            messageEl.textContent = message;
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                font-weight: 500;
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(messageEl);
+            
+            // Animate in
+            setTimeout(() => {
+                messageEl.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                messageEl.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(messageEl)) {
+                        document.body.removeChild(messageEl);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Start timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            startResendTimer();
+        });
     </script>
     <script src="js/page-transition.js"></script>
     <script src="js/simple-navigation.js"></script>
-    </div>
 </body>
 
 </html>

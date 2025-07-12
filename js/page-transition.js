@@ -2,6 +2,7 @@
 class PageTransition {
     constructor() {
         this.isNavigating = false;
+        this.progressInterval = null;
         this.init();
     }
 
@@ -29,19 +30,9 @@ class PageTransition {
             sessionStorage.removeItem('isNavigating');
             sessionStorage.removeItem('navigationStartTime');
             
-            // Calculate elapsed time and continue progress
-            const elapsed = navigationStartTime ? Date.now() - parseInt(navigationStartTime) : 0;
-            const startProgress = Math.min((elapsed / 2000) * 100, 90); // Max 90% from previous page
-            
-            this.continueProgressAnimation(startProgress);
-            
-            window.addEventListener('load', () => {
-                this.hideLoader();
-                // Reset navigation state after page fully loads
-                setTimeout(() => {
-                    this.isNavigating = false;
-                }, 1000);
-            });
+            // For programmatic navigation, hide loader immediately
+            this.hideLoaderImmediately();
+            this.isNavigating = false;
         } else {
             // Direct page load, hide loader immediately
             this.hideLoaderImmediately();
@@ -58,16 +49,22 @@ class PageTransition {
         const progressPercentage = document.querySelector('.progress-percentage');
         
         if (progressBar && progressPercentage) {
+            // Clear any existing interval
+            if (this.progressInterval) {
+                clearInterval(this.progressInterval);
+            }
+            
             let progress = 0;
             const duration = 2000; // 2 seconds
             const increment = 100 / (duration / 50); // Update every 50ms
 
-            const progressInterval = setInterval(() => {
+            this.progressInterval = setInterval(() => {
                 progress += increment;
                 
                 if (progress >= 100) {
                     progress = 100;
-                    clearInterval(progressInterval);
+                    clearInterval(this.progressInterval);
+                    this.progressInterval = null;
                 }
                 
                 // Update both width and text
@@ -82,6 +79,11 @@ class PageTransition {
         const progressPercentage = document.querySelector('.progress-percentage');
         
         if (progressBar && progressPercentage) {
+            // Clear any existing interval
+            if (this.progressInterval) {
+                clearInterval(this.progressInterval);
+            }
+            
             let progress = startProgress;
             const duration = 1500; // Reduced duration for continuation
             const increment = (100 - startProgress) / (duration / 50);
@@ -90,12 +92,13 @@ class PageTransition {
             progressBar.style.width = progress + '%';
             progressPercentage.textContent = Math.round(progress) + '%';
 
-            const progressInterval = setInterval(() => {
+            this.progressInterval = setInterval(() => {
                 progress += increment;
                 
                 if (progress >= 100) {
                     progress = 100;
-                    clearInterval(progressInterval);
+                    clearInterval(this.progressInterval);
+                    this.progressInterval = null;
                 }
                 
                 // Update both width and text
@@ -103,6 +106,22 @@ class PageTransition {
                 progressPercentage.textContent = Math.round(progress) + '%';
             }, 50);
         }
+    }
+
+    // Stop all animations and clear intervals
+    stopAllAnimations() {
+        if (this.progressInterval) {
+            clearInterval(this.progressInterval);
+            this.progressInterval = null;
+        }
+    }
+
+    // Method to reset navigation state
+    resetNavigationState() {
+        this.isNavigating = false;
+        sessionStorage.removeItem('isNavigating');
+        sessionStorage.removeItem('navigationStartTime');
+        this.stopAllAnimations();
     }
 
     showLoader() {
@@ -183,7 +202,13 @@ class PageTransition {
 
     navigateToPage(url, buttonElement = null) {
         // Prevent multiple simultaneous navigations
-        if (this.isNavigating) return;
+        if (this.isNavigating) {
+            console.log('Navigation already in progress, skipping...');
+            return;
+        }
+        
+        console.log('Starting navigation to:', url);
+        this.isNavigating = true;
         
         // Set navigation flag and current progress
         sessionStorage.setItem('isNavigating', 'true');
@@ -203,6 +228,25 @@ class PageTransition {
         setTimeout(() => {
             window.location.href = url;
         }, 1200);
+    }
+
+    // Method for programmatic navigation without showing loader again
+    navigateTo(url) {
+        console.log('Direct navigation to:', url);
+        // Clear any existing navigation state
+        sessionStorage.removeItem('isNavigating');
+        sessionStorage.removeItem('navigationStartTime');
+        
+        // Short delay then navigate
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300);
+        
+        // Fallback - force navigation after 2 seconds if something goes wrong
+        setTimeout(() => {
+            console.log('Fallback navigation triggered');
+            window.location.href = url;
+        }, 2000);
     }
 
     addNavigationHandlers() {
@@ -231,6 +275,12 @@ class PageTransition {
                         break;
                     case 'home':
                         targetUrl = 'index.html';
+                        break;
+                    case 'forgot-password':
+                        targetUrl = 'forgot-password.html';
+                        break;
+                    case 'verify-code':
+                        targetUrl = 'verify-code.html';
                         break;
                     default:
                         // Use href if available, otherwise use navigate type as filename
@@ -279,6 +329,29 @@ class PageTransition {
 
 // Initialize page transitions
 document.addEventListener('DOMContentLoaded', () => {
+    // Force clear any stuck loader
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        // Check if loader is visible and shouldn't be
+        const isVisible = loader.style.display !== 'none' && !loader.classList.contains('fade-out');
+        if (isVisible) {
+            // Force hide it
+            loader.style.display = 'none';
+            // Show page content
+            const pageContent = document.querySelector('.page-content');
+            if (pageContent) {
+                pageContent.classList.add('show');
+                pageContent.style.opacity = '1';
+                pageContent.style.transform = 'translateY(0)';
+            }
+            // Show header
+            if (window.showHeader) {
+                window.showHeader();
+            }
+            document.body.style.opacity = '1';
+        }
+    }
+    
     // Check if this is a page reload or back navigation
     const isPageReload = window.performance.navigation.type === 1; // TYPE_RELOAD
     const isBackForward = window.performance.navigation.type === 2; // TYPE_BACK_FORWARD
@@ -293,8 +366,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastNavigation = sessionStorage.getItem('navigationStartTime');
     if (lastNavigation) {
         const timeSinceNavigation = Date.now() - parseInt(lastNavigation);
-        // If more than 10 seconds have passed, clear navigation state
-        if (timeSinceNavigation > 10000) {
+        // If more than 5 seconds have passed, clear navigation state
+        if (timeSinceNavigation > 5000) {
             sessionStorage.removeItem('isNavigating');
             sessionStorage.removeItem('navigationStartTime');
         }
@@ -355,6 +428,12 @@ document.addEventListener('click', function(e) {
                 break;
             case 'home':
                 targetUrl = 'index.html';
+                break;
+            case 'forgot-password':
+                targetUrl = 'forgot-password.html';
+                break;
+            case 'verify-code':
+                targetUrl = 'verify-code.html';
                 break;
             default:
                 targetUrl = element.href || `${navigateType}.html`;
