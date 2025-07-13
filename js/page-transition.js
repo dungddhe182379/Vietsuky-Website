@@ -1,4 +1,4 @@
-// Page Transition Manager - Production Version
+// Page Transition Manager - Simple Version without SessionStorage
 class PageTransition {
     constructor() {
         this.isNavigating = false;
@@ -10,36 +10,9 @@ class PageTransition {
         // Reset navigation state
         this.isNavigating = false;
         
-        // Check if this is a back/forward navigation
-        const isBackForwardNavigation = window.performance && 
-            window.performance.navigation && 
-            window.performance.navigation.type === 2;
+        // Always hide loader immediately on page load
+        this.hideLoaderImmediately();
         
-        // Check if we're coming from a navigation
-        const isFromNavigation = sessionStorage.getItem('isNavigating');
-        const navigationStartTime = sessionStorage.getItem('navigationStartTime');
-        
-        // If it's back/forward navigation, always hide loader immediately
-        if (isBackForwardNavigation) {
-            sessionStorage.removeItem('isNavigating');
-            sessionStorage.removeItem('navigationStartTime');
-            this.hideLoaderImmediately();
-            this.isNavigating = false;
-        } else if (isFromNavigation === 'true') {
-            // We're coming from navigation (not back/forward)
-            sessionStorage.removeItem('isNavigating');
-            sessionStorage.removeItem('navigationStartTime');
-            
-            // For programmatic navigation, hide loader immediately
-            this.hideLoaderImmediately();
-            this.isNavigating = false;
-        } else {
-            // Direct page load, hide loader immediately
-            this.hideLoaderImmediately();
-            // Ensure navigation state is reset
-            this.isNavigating = false;
-        }
-
         // Add click handlers for navigation
         this.addNavigationHandlers();
     }
@@ -114,14 +87,6 @@ class PageTransition {
             clearInterval(this.progressInterval);
             this.progressInterval = null;
         }
-    }
-
-    // Method to reset navigation state
-    resetNavigationState() {
-        this.isNavigating = false;
-        sessionStorage.removeItem('isNavigating');
-        sessionStorage.removeItem('navigationStartTime');
-        this.stopAllAnimations();
     }
 
     showLoader() {
@@ -203,16 +168,10 @@ class PageTransition {
     navigateToPage(url, buttonElement = null) {
         // Prevent multiple simultaneous navigations
         if (this.isNavigating) {
-            console.log('Navigation already in progress, skipping...');
             return;
         }
         
-        console.log('Starting navigation to:', url);
         this.isNavigating = true;
-        
-        // Set navigation flag and current progress
-        sessionStorage.setItem('isNavigating', 'true');
-        sessionStorage.setItem('navigationStartTime', Date.now().toString());
         
         // Add loading state to button if provided
         if (buttonElement) {
@@ -230,23 +189,37 @@ class PageTransition {
         }, 1200);
     }
 
-    // Method for programmatic navigation without showing loader again
+    // Method for direct navigation
     navigateTo(url) {
-        console.log('Direct navigation to:', url);
-        // Clear any existing navigation state
-        sessionStorage.removeItem('isNavigating');
-        sessionStorage.removeItem('navigationStartTime');
-        
         // Short delay then navigate
         setTimeout(() => {
             window.location.href = url;
         }, 300);
-        
-        // Fallback - force navigation after 2 seconds if something goes wrong
-        setTimeout(() => {
-            console.log('Fallback navigation triggered');
-            window.location.href = url;
-        }, 2000);
+    }
+
+    showTransition() {
+        const loader = document.getElementById('pageLoader');
+        if (loader) {
+            // Start from a higher progress since we're continuing from navigation
+            const progressBar = loader.querySelector('.progress-bar');
+            const progressPercentage = loader.querySelector('.progress-percentage');
+            
+            if (progressBar && progressPercentage) {
+                // Start from 30% and continue to 100%
+                this.continueProgressAnimation(30);
+                
+                // Hide loader after reaching 100%
+                setTimeout(() => {
+                    this.hideLoader();
+                }, 1500);
+            } else {
+                // Fallback: just hide immediately if no progress elements
+                this.hideLoaderImmediately();
+            }
+        } else {
+            // No loader found, show content immediately
+            this.hideLoaderImmediately();
+        }
     }
 
     addNavigationHandlers() {
@@ -282,6 +255,12 @@ class PageTransition {
                     case 'verify-code':
                         targetUrl = 'verify-code.html';
                         break;
+                    case 'register':
+                        targetUrl = 'register.html';
+                        break;
+                    case 'newpassword':
+                        targetUrl = 'newpassword.html';
+                        break;
                     default:
                         // Use href if available, otherwise use navigate type as filename
                         targetUrl = element.href || `${navigateType}.html`;
@@ -314,9 +293,6 @@ class PageTransition {
 
                 // Simulate form processing time
                 setTimeout(() => {
-                    sessionStorage.setItem('isNavigating', 'true');
-                    sessionStorage.setItem('navigationStartTime', Date.now().toString());
-                    
                     this.showLoader();
                     setTimeout(() => {
                         window.location.href = targetUrl;
@@ -327,71 +303,15 @@ class PageTransition {
     }
 }
 
-// Initialize page transitions
-document.addEventListener('DOMContentLoaded', () => {
-    // Force clear any stuck loader
-    const loader = document.getElementById('pageLoader');
-    if (loader) {
-        // Check if loader is visible and shouldn't be
-        const isVisible = loader.style.display !== 'none' && !loader.classList.contains('fade-out');
-        if (isVisible) {
-            // Force hide it
-            loader.style.display = 'none';
-            // Show page content
-            const pageContent = document.querySelector('.page-content');
-            if (pageContent) {
-                pageContent.classList.add('show');
-                pageContent.style.opacity = '1';
-                pageContent.style.transform = 'translateY(0)';
-            }
-            // Show header
-            if (window.showHeader) {
-                window.showHeader();
-            }
-            document.body.style.opacity = '1';
-        }
-    }
-    
-    // Check if this is a page reload or back navigation
-    const isPageReload = window.performance.navigation.type === 1; // TYPE_RELOAD
-    const isBackForward = window.performance.navigation.type === 2; // TYPE_BACK_FORWARD
-    
-    // For page reload or back/forward, always clear navigation state
-    if (isPageReload || isBackForward) {
-        sessionStorage.removeItem('isNavigating');
-        sessionStorage.removeItem('navigationStartTime');
-    }
-    
-    // Clear any stuck navigation state on fresh page load
-    const lastNavigation = sessionStorage.getItem('navigationStartTime');
-    if (lastNavigation) {
-        const timeSinceNavigation = Date.now() - parseInt(lastNavigation);
-        // If more than 5 seconds have passed, clear navigation state
-        if (timeSinceNavigation > 5000) {
-            sessionStorage.removeItem('isNavigating');
-            sessionStorage.removeItem('navigationStartTime');
-        }
-    }
-    
-    // Wait for other scripts to load, then initialize
-    setTimeout(() => {
-        window.pageTransitionInstance = new PageTransition();
-    }, 200);
-});
-
-// Handle browser back/forward navigation
-window.addEventListener('popstate', (event) => {
-    // Clear navigation state when using back/forward buttons
-    sessionStorage.removeItem('isNavigating');
-    sessionStorage.removeItem('navigationStartTime');
-    
-    // Hide loader immediately if it's showing
+// Simple DOM loading without sessionStorage
+document.addEventListener('DOMContentLoaded', function() {
+    // Force hide loader immediately on any page load
     const loader = document.getElementById('pageLoader');
     if (loader) {
         loader.style.display = 'none';
     }
     
-    // Show page content immediately
+    // Force show page content immediately
     const pageContent = document.querySelector('.page-content');
     if (pageContent) {
         pageContent.classList.add('show');
@@ -399,7 +319,37 @@ window.addEventListener('popstate', (event) => {
         pageContent.style.transform = 'translateY(0)';
     }
     
-    // Show header using script.js function
+    // Show header
+    if (window.showHeader) {
+        window.showHeader();
+    }
+    
+    // Ensure body is visible
+    document.body.style.opacity = '1';
+    
+    // Initialize page transitions
+    setTimeout(() => {
+        window.pageTransitionInstance = new PageTransition();
+    }, 100);
+});
+
+// Handle browser back/forward navigation - simple approach
+window.addEventListener('popstate', function() {
+    // Force hide loader immediately
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        loader.style.display = 'none';
+    }
+    
+    // Force show page content
+    const pageContent = document.querySelector('.page-content');
+    if (pageContent) {
+        pageContent.classList.add('show');
+        pageContent.style.opacity = '1';
+        pageContent.style.transform = 'translateY(0)';
+    }
+    
+    // Show header
     if (window.showHeader) {
         window.showHeader();
     }
@@ -410,6 +360,29 @@ window.addEventListener('popstate', (event) => {
     // Reset navigation state
     if (window.pageTransitionInstance) {
         window.pageTransitionInstance.isNavigating = false;
+    }
+});
+
+// Handle page loaded from cache (back/forward button)
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        // Force hide loader
+        const loader = document.getElementById('pageLoader');
+        if (loader) {
+            loader.style.display = 'none';
+        }
+        
+        // Force show content
+        const pageContent = document.querySelector('.page-content');
+        if (pageContent) {
+            pageContent.style.opacity = '1';
+            pageContent.style.transform = 'translateY(0)';
+        }
+        
+        // Reset navigation state
+        if (window.pageTransitionInstance) {
+            window.pageTransitionInstance.isNavigating = false;
+        }
     }
 });
 
@@ -434,6 +407,12 @@ document.addEventListener('click', function(e) {
                 break;
             case 'verify-code':
                 targetUrl = 'verify-code.html';
+                break;
+            case 'register':
+                targetUrl = 'register.html';
+                break;
+            case 'newpassword':
+                targetUrl = 'newpassword.html';
                 break;
             default:
                 targetUrl = element.href || `${navigateType}.html`;
