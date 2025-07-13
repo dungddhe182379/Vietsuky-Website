@@ -1,5 +1,23 @@
 // Main JavaScript for Viet Su Ky Website
 document.addEventListener('DOMContentLoaded', function() {
+    // Force scroll to top on page load/reload
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+    }
+    
+    // Immediately scroll to top
+    window.scrollTo(0, 0);
+    
+    // Ensure scroll to top after any browser back/forward navigation
+    window.addEventListener('beforeunload', function() {
+        window.scrollTo(0, 0);
+    });
+    
+    // Handle browser back/forward - always scroll to top
+    window.addEventListener('pageshow', function(event) {
+        window.scrollTo(0, 0);
+    });
+    
     // Header Animation Management
     function initHeaderAnimation() {
         const header = document.querySelector('.header');
@@ -347,6 +365,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add smooth reveal for page load
     window.addEventListener('load', () => {
         document.body.classList.add('page-loaded');
+        // Ensure we're at top after everything loads
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 50);
     });
     
     // Enhanced scroll effects for different sections
