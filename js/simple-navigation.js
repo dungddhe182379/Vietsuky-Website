@@ -21,7 +21,7 @@
 
                 // Animate progress from 0 to 100%
                 let progress = 0;
-                const duration = 1500; // 1.5 seconds
+                const duration = 750; // 0.75 seconds
                 const increment = 100 / (duration / 50); // Update every 50ms
 
                 const progressInterval = setInterval(() => {
@@ -34,7 +34,7 @@
                         // Navigate after reaching 100%
                         setTimeout(() => {
                             window.location.href = url;
-                        }, 200);
+                        }, 100);
                     }
 
                     progressBar.style.width = progress + '%';
@@ -44,7 +44,7 @@
                 // Fallback if no progress elements
                 setTimeout(() => {
                     window.location.href = url;
-                }, 800);
+                }, 400);
             }
         } else {
             // No loader, navigate immediately
@@ -90,10 +90,10 @@
     // Initialize after DOM loads
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(initSimpleNavigation, 300);
+            setTimeout(initSimpleNavigation, 150);
         });
     } else {
-        setTimeout(initSimpleNavigation, 300);
+        setTimeout(initSimpleNavigation, 150);
     }
 
     // Make available globally

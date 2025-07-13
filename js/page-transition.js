@@ -28,7 +28,7 @@ class PageTransition {
             }
             
             let progress = 0;
-            const duration = 2000; // 2 seconds
+            const duration = 1000; // 1 second
             const increment = 100 / (duration / 50); // Update every 50ms
 
             this.progressInterval = setInterval(() => {
@@ -58,7 +58,7 @@ class PageTransition {
             }
             
             let progress = startProgress;
-            const duration = 1500; // Reduced duration for continuation
+            const duration = 750; // Reduced duration for continuation
             const increment = (100 - startProgress) / (duration / 50);
 
             // Set initial progress
@@ -119,8 +119,8 @@ class PageTransition {
                 loader.classList.add('fade-out');
                 setTimeout(() => {
                     loader.style.display = 'none';
-                }, 800);
-            }, 500);
+                }, 400);
+            }, 250);
         }
 
         // Show page content
@@ -186,7 +186,7 @@ class PageTransition {
         // Navigate after a short delay
         setTimeout(() => {
             window.location.href = url;
-        }, 1200);
+        }, 600);
     }
 
     // Method for direct navigation
@@ -194,7 +194,7 @@ class PageTransition {
         // Short delay then navigate
         setTimeout(() => {
             window.location.href = url;
-        }, 300);
+        }, 150);
     }
 
     showTransition() {
@@ -211,7 +211,7 @@ class PageTransition {
                 // Hide loader after reaching 100%
                 setTimeout(() => {
                     this.hideLoader();
-                }, 1500);
+                }, 750);
             } else {
                 // Fallback: just hide immediately if no progress elements
                 this.hideLoaderImmediately();
@@ -296,8 +296,8 @@ class PageTransition {
                     this.showLoader();
                     setTimeout(() => {
                         window.location.href = targetUrl;
-                    }, 1000);
-                }, 1500);
+                    }, 500);
+                }, 750);
             });
         });
     }
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize page transitions
     setTimeout(() => {
         window.pageTransitionInstance = new PageTransition();
-    }, 100);
+    }, 50);
 });
 
 // Handle browser back/forward navigation - simple approach
