@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             coursesContainer.style.overflowX = 'auto';
             coursesContainer.style.scrollBehavior = 'smooth';
         } else {
-            coursesContainer.style.animation = 'slideShow 25s infinite linear';
+            coursesContainer.style.animation = 'slideShow 5s infinite linear'; /* Tăng tốc gấp 3 lần */
             coursesContainer.style.overflowX = 'visible';
         }
     }
