@@ -226,6 +226,13 @@ body::before {
     display: none; /* Remove overlay since we have global overlay */
 }
 
+/* Slider wrapper to control overflow while allowing hover effects */
+.slider-wrapper {
+    position: relative;
+    overflow: hidden; /* Hide horizontal scroll */
+    padding: 40px 0; /* Extra padding for hover effects */
+}
+
 .hero-content {
     position: relative;
     z-index: 3;
@@ -248,27 +255,76 @@ body::before {
     padding: 0 20px;
     display: flex;
     gap: 30px;
-    overflow: visible; /* Allow hover effects to show */
+    overflow: visible; /* Allow hover effects to show without clipping */
     scroll-behavior: smooth;
-    animation: slideShow 5s infinite linear; /* Tăng tốc gấp 3 lần */
     position: relative;
     z-index: 2;
     white-space: nowrap;
-    width: calc(200% + 30px); /* Double width for seamless loop */
+    width: auto; /* Auto width to prevent cutting off */
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth easing */
+    will-change: transform; /* Optimize for transform animations */
+    backface-visibility: hidden; /* Improve performance */
+    padding: 20px 50px; /* Add padding to prevent clipping */
 }
 
-.courses-container:hover {
-    animation-play-state: paused;
+
+
+/* Slider Controls - Improved design */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    pointer-events: none;
+    transform: translateY(-50%);
 }
 
-/* Animation cho slide tự động */
-@keyframes slideShow {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+.slider-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
+    color: #333;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+}
+
+.slider-btn:hover {
+    background: rgba(252, 194, 74, 0.95);
+    transform: scale(1.15);
+    box-shadow: 0 8px 30px rgba(252, 194, 74, 0.3);
+    color: #fff;
+    opacity: 1;
+}
+
+.slider-btn:active {
+    transform: scale(1.05);
+    transition: transform 0.1s ease;
+}
+
+.slider-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.slider-btn:hover svg {
+    transform: scale(1.2);
+}
+
+/* Simple fade transition for smooth experience */
+.slide-transition {
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
 
 /* Hero Section - Now integrated as background for courses */
@@ -309,7 +365,7 @@ body::before {
     margin: 0;
 }
 
-/* Course Card */
+/* Course Card - Enhanced smooth transitions with proper overflow handling */
 .course-card {
     position: relative;
     min-width: 300px;
@@ -321,23 +377,14 @@ body::before {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     flex-shrink: 0;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Đảm bảo tất cả card luôn ở trạng thái đen trắng khi không hover */
-.course-card:not(:hover) {
-    animation: resetToGrayscale 0.1s ease forwards;
-}
-
-@keyframes resetToGrayscale {
-    to {
-        /* Card về trạng thái ban đầu */
-    }
+    will-change: transform; /* Optimize for animations */
+    z-index: 1; /* Default z-index */
 }
 
 .course-card:hover {
     transform: scale(1.08) translateY(-15px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-    z-index: 100;
+    z-index: 100; /* Bring to front when hovering */
 }
 
 .card-image {
@@ -583,12 +630,29 @@ body::before {
         gap: 20px;
         padding: 0 15px;
         max-width: 100%;
+        transform: none !important;
+        width: 100% !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        transition: none !important;
     }
 
     .course-card {
         min-width: 260px;
         max-width: 260px;
         height: 340px;
+        scroll-snap-align: start;
+    }
+    
+    /* Hide slider controls on mobile */
+    .slider-controls {
+        display: none;
+    }
+    
+    /* Hide slider wrapper on mobile */
+    .slider-wrapper {
+        overflow-x: auto;
+        padding: 20px 0;
     }
 
     .title {
@@ -645,12 +709,23 @@ body::before {
         gap: 15px;
         padding: 0 10px;
         max-width: 100%;
+        animation: none !important;
+        transform: none !important;
+        width: 100% !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
     }
 
     .course-card {
         min-width: 220px;
         max-width: 220px;
         height: 300px;
+        scroll-snap-align: start;
+    }
+    
+    /* Hide slider controls on mobile */
+    .slider-controls {
+        display: none;
     }
 
     .card-content {

@@ -72,7 +72,24 @@
             <div class="hero-content">
                 <h1 class="hero-title">Lựa chọn giai đoạn lịch sử</h1>
             </div>
-            <div class="courses-container">
+            
+            <!-- Slider Controls -->
+            <div class="slider-controls">
+                <button class="slider-btn prev-btn" id="prevBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="slider-btn next-btn" id="nextBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Slider Wrapper -->
+            <div class="slider-wrapper">
+                <div class="courses-container">
                 <div class="course-card">
                     <div class="card-image">
                         <img src="images/v99_280.png" alt="Dựng nước">
@@ -156,11 +173,10 @@
                         <p class="duration">1975 - nay</p>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
-    </div>
-
-    <script src="js/courses-slider.js"></script>
+    </div>    <script src="js/courses-slider.js"></script>
     <script src="js/page-transition.js"></script>
     <script src="js/simple-navigation.js"></script>
 </body>

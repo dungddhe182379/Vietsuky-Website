@@ -53,27 +53,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Courses slider functionality with seamless loop
+    // Modern smooth slider functionality - Manual control only
     const coursesContainer = document.querySelector('.courses-container');
     const originalCards = document.querySelectorAll('.course-card');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
     
     if (!coursesContainer || originalCards.length === 0) return;
     
-    // Create seamless infinite loop by duplicating cards
-    function createInfiniteLoop() {
-        // Clear existing duplicates
-        const existingDuplicates = coursesContainer.querySelectorAll('.course-card[data-duplicate]');
-        existingDuplicates.forEach(card => card.remove());
+    // Slider configuration
+    let currentSlide = 0;
+    const totalSlides = originalCards.length;
+    const cardWidth = 330; // Width of each card + gap (300px card + 30px gap)
+    const visibleCards = Math.floor((window.innerWidth - 100) / cardWidth); // Account for padding
+    const maxSlide = Math.max(0, totalSlides - visibleCards);
+    
+    // Setup smooth slider
+    function initializeSlider() {
+        // Reset container position
+        coursesContainer.style.transform = 'translateX(0)';
         
-        // Clone original cards and append them
-        originalCards.forEach(card => {
-            const clone = card.cloneNode(true);
-            clone.setAttribute('data-duplicate', 'true');
-            coursesContainer.appendChild(clone);
-        });
-        
-        // Set up hover effects for all cards (original + clones)
+        // Setup hover effects for all cards
         setupHoverEffects();
+    }
+    
+    // Smooth slide animation with pixel-perfect calculation
+    function goToSlide(slideIndex, animate = true) {
+        // Ensure slide index is within bounds
+        currentSlide = Math.max(0, Math.min(slideIndex, maxSlide));
+        
+        // Calculate exact transform based on card width
+        const translateX = -(currentSlide * cardWidth);
+        
+        if (animate) {
+            coursesContainer.style.transition = 'transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)';
+        } else {
+            coursesContainer.style.transition = 'none';
+        }
+        
+        coursesContainer.style.transform = `translateX(${translateX}px)`;
+    }
+    
+    // Move to next slide with smooth push effect
+    function nextSlide() {
+        if (currentSlide < maxSlide) {
+            currentSlide++;
+            goToSlide(currentSlide);
+        } else {
+            // Smooth bounce effect when at the end
+            coursesContainer.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            coursesContainer.style.transform = `translateX(${-(currentSlide * cardWidth) - 20}px)`;
+            
+            setTimeout(() => {
+                coursesContainer.style.transition = 'transform 0.3s ease-out';
+                coursesContainer.style.transform = `translateX(${-(currentSlide * cardWidth)}px)`;
+            }, 150);
+        }
+    }
+    
+    // Move to previous slide with smooth push effect
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            goToSlide(currentSlide);
+        } else {
+            // Smooth bounce effect when at the beginning
+            coursesContainer.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            coursesContainer.style.transform = `translateX(20px)`;
+            
+            setTimeout(() => {
+                coursesContainer.style.transition = 'transform 0.3s ease-out';
+                coursesContainer.style.transform = `translateX(0px)`;
+            }, 150);
+        }
     }
 
     // Setup hover effects for all cards
@@ -149,42 +201,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize infinite loop
-    createInfiniteLoop();
+    // Initialize slider
+    initializeSlider();
+    
+    // Event listeners for manual controls only
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+        });
+    }
     
     // Reset all cards to grayscale state initially
     setTimeout(() => {
         resetAllCardsToGrayscale();
     }, 100);
     
-    // Reset cards periodically to ensure they stay in grayscale state
-    setInterval(() => {
-        resetAllCardsToGrayscale();
-    }, 5000); // Reset every 5 seconds
+    // No auto-play - manual control only
     
-    // Pause animation when hovering over container
+    // Smooth hover effects without auto-play interference
     coursesContainer.addEventListener('mouseenter', function() {
-        this.style.animationPlayState = 'paused';
+        // Just maintain smooth hover state
     });
     
-    // Resume animation and reset cards when mouse leaves container
+    // Resume smooth state on mouse leave
     coursesContainer.addEventListener('mouseleave', function() {
-        this.style.animationPlayState = 'running';
-        // Reset all cards after a short delay to ensure smooth transition
         setTimeout(() => {
             resetAllCardsToGrayscale();
         }, 100);
     });
 
-    // Handle responsive behavior
+    // Handle responsive behavior with smooth transitions
     function handleResize() {
+        const newVisibleCards = Math.floor((window.innerWidth - 100) / cardWidth);
+        
         if (window.innerWidth <= 768) {
-            coursesContainer.style.animation = 'none';
+            coursesContainer.style.transform = 'translateX(0)';
+            coursesContainer.style.transition = 'none';
             coursesContainer.style.overflowX = 'auto';
             coursesContainer.style.scrollBehavior = 'smooth';
         } else {
-            coursesContainer.style.animation = 'slideShow 5s infinite linear'; /* Tăng tốc gấp 3 lần */
             coursesContainer.style.overflowX = 'visible';
+            // Recalculate current slide position
+            const newMaxSlide = Math.max(0, totalSlides - newVisibleCards);
+            currentSlide = Math.min(currentSlide, newMaxSlide);
+            goToSlide(currentSlide, false);
         }
     }
 
