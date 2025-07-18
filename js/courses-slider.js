@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Slider configuration
     let currentSlide = 0;
     const totalSlides = originalCards.length;
-    const cardWidth = 330; // Width of each card + gap (300px card + 30px gap)
+    const cardWidth = 285; // Width of each card + gap (260px card + 25px gap)
     const visibleCards = Math.floor((window.innerWidth - 100) / cardWidth); // Account for padding
     const maxSlide = Math.max(0, totalSlides - visibleCards);
     
