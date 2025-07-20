@@ -9,24 +9,45 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="images/logo.png" alt="Logo">
+    <!-- Course Header -->
+    <header class="course-header">
+        <div class="course-container">
+            <div class="course-nav-left">
+                <div class="course-logo" data-navigate="index">
+                    <img data-navigate="index" src="images/logo.png" alt="Việt Sử Ký Logo" class="course-logo-image">
                 </div>
-                <nav class="navigation">
-                    <a href="#" class="nav-item active">Trang chủ</a>
-                    <a href="#" class="nav-item">Khoá học</a>
-                    <a href="#" class="nav-item">Chi phí</a>
-                    <a href="#" class="nav-item">Về chúng tôi</a>
-                    <a href="#" class="nav-item">Liên hệ</a>
+                <nav class="course-nav">
+                    <ul class="course-nav-menu">
+                        <li><a href="index.html" data-navigate="index" class="course-nav-link">Trang chủ</a></li>
+                        <li><a href="courses.html" class="course-nav-link active">Khoá học</a></li>
+                        <li><a href="#pricing" class="course-nav-link">Chi phí</a></li>
+                        <li><a href="#about" class="course-nav-link">Về chúng tôi</a></li>
+                        <li><a href="#contact" class="course-nav-link">Liên hệ</a></li>
+                    </ul>
                 </nav>
-                <div class="user-icon"></div>
             </div>
-        </header>
+            <div class="course-auth-buttons">
+                <div class="course-user-account">
+                    <svg class="course-user-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <span>Tài khoản</span>
+                </div>
+            </div>
+            <button class="course-mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
 
+    <div class="container">
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-background"></div>
@@ -58,7 +79,7 @@
                         <div class="hero-timeline-date">21/7/1954</div>
                     </div>
                 </div>
-                
+
                 <!-- Main title and number in center -->
                 <div class="hero-text">
                     <h1 class="hero-title">ĐIỆN BIÊN PHỦ</h1>
@@ -71,7 +92,7 @@
                     </div>
                     <div class="hero-subtitle-bottom">CHẤN ĐỘNG ĐỊA CẦU</div>
                 </div>
-                
+
                 <!-- Golden statue image on the right -->
                 <div class="hero-image">
                     <img src="images/v0_4892.png" alt="Tượng đài Điện Biên Phủ">
@@ -91,23 +112,27 @@
                     <div class="context-star">★</div>
                 </div>
             </div>
-            
+
             <div class="context-content-new">
                 <div class="context-column">
                     <h3 class="context-subtitle">Trong nước</h3>
                     <p>Sau Cách mạng Tháng Tám 1945, nước Việt Nam Dân chủ Cộng hòa được thành lập.</p>
-                    <p>Pháp trở lại xâm lược năm 1946, buộc nhân dân ta bước vào cuộc kháng chiến toàn quốc chống thực dân Pháp.</p>
-                    <p>Đến đầu thập niên 1950, sau nhiều chiến thắng lớn (Biên giới, Hòa Bình, Tây Bắc), quân và dân ta từng bước làm chủ chiến trường.</p>
+                    <p>Pháp trở lại xâm lược năm 1946, buộc nhân dân ta bước vào cuộc kháng chiến toàn quốc chống thực
+                        dân Pháp.</p>
+                    <p>Đến đầu thập niên 1950, sau nhiều chiến thắng lớn (Biên giới, Hòa Bình, Tây Bắc), quân và dân ta
+                        từng bước làm chủ chiến trường.</p>
                 </div>
-                
+
                 <div class="context-column">
                     <h3 class="context-subtitle">Quốc tế</h3>
                     <p>Cách mạng Trung Quốc thắng lợi (1949) – mở đường tiếp tế chiến lược cho Việt Nam.</p>
-                    <p>Mỹ can thiệp sâu, viện trợ tài chính – quân sự cho Pháp tại Đông Dương, biến chiến tranh xâm lược Việt Nam thành "chiến tranh thực dân kiểu mới".</p>
-                    <p>Pháp lâm vào thế sa lầy, muốn kết thúc chiến tranh bằng thắng lợi quân sự quyết định → triển khai kế hoạch Nava.</p>
+                    <p>Mỹ can thiệp sâu, viện trợ tài chính – quân sự cho Pháp tại Đông Dương, biến chiến tranh xâm lược
+                        Việt Nam thành "chiến tranh thực dân kiểu mới".</p>
+                    <p>Pháp lâm vào thế sa lầy, muốn kết thúc chiến tranh bằng thắng lợi quân sự quyết định → triển khai
+                        kế hoạch Nava.</p>
                 </div>
             </div>
-            
+
         </section>
 
         <!-- Context Image Section -->
@@ -131,32 +156,34 @@
                     <div class="causes-star">★</div>
                 </div>
             </div>
-            
+
             <div class="causes-content">
                 <div class="cause-text-section">
                     <h3 class="cause-subtitle">Nguyên nhân từ phía Pháp</h3>
                     <div class="cause-text-content">
-                        <p>Pháp xây dựng tập đoàn cứ điểm Điện Biên Phủ gồm 49 cứ điểm, chia thành 3 phân khu (Bắc, Trung tâm, Nam) với tham vọng:</p>
+                        <p>Pháp xây dựng tập đoàn cứ điểm Điện Biên Phủ gồm 49 cứ điểm, chia thành 3 phân khu (Bắc,
+                            Trung tâm, Nam) với tham vọng:</p>
                         <p>• Thu hút quân chủ lực của ta vào trận địa cố định.</p>
                         <p>• Dùng hỏa lực mạnh, quân tinh nhuệ để tiêu diệt, tạo đòn quyết định chiến lược.</p>
                         <p>• Tạo thế trên bàn đàm phán ở Hội nghị Genève đang chuẩn bị khai mạc.</p>
                     </div>
                 </div>
-                
+
                 <div class="cause-image-section">
                     <div class="cause-image">
                         <img src="images/v0_4931.png" alt="Nguyên nhân từ phía Pháp">
                     </div>
                 </div>
-                
+
                 <div class="cause-text-section">
                     <h3 class="cause-subtitle">Nguyên nhân từ ta</h3>
                     <div class="cause-text-content">
-                        <p>• Chủ trương của Bộ Chính trị và Tổng Quân ủy Trung ương: "Kiên quyết tiêu diệt toàn bộ quân địch ở Điện Biên Phủ."</p>
+                        <p>• Chủ trương của Bộ Chính trị và Tổng Quân ủy Trung ương: "Kiên quyết tiêu diệt toàn bộ quân
+                            địch ở Điện Biên Phủ."</p>
                         <p>• Tạo thế trận chiến dịch tấn công lớn – kết thúc thắng lợi cuộc kháng chiến chống Pháp.</p>
                     </div>
                 </div>
-                
+
                 <div class="cause-image-section">
                     <div class="cause-image">
                         <img src="images/v0_4935.png" alt="Nguyên nhân từ ta">
@@ -177,7 +204,7 @@
                     <div class="campaign-star">★</div>
                 </div>
             </div>
-            
+
             <div class="campaign-timeline-new">
                 <!-- Timeline Stats -->
                 <div class="timeline-stats">
@@ -206,7 +233,8 @@
                                 <p>Ta tấn công cụm cứ điểm phía Bắc gồm Him Lam, Độc Lập, Bản Kéo.</p>
                                 <div class="phase-result">
                                     <div class="result-icon">✓</div>
-                                    <span>Tiêu diệt hoàn toàn các cứ điểm này. Phá vòng ngoài, làm chủ mặt trận phía Bắc.</span>
+                                    <span>Tiêu diệt hoàn toàn các cứ điểm này. Phá vòng ngoài, làm chủ mặt trận phía
+                                        Bắc.</span>
                                 </div>
                             </div>
                         </div>
@@ -241,10 +269,12 @@
                             <div class="phase-title">Đợt 2: Bao vây chặt chẽ</div>
                             <div class="phase-date">30/3 – 26/4/1954</div>
                             <div class="phase-description">
-                                <p>Ta mở rộng tấn công các cứ điểm trung tâm như: C1, D1, E1, A1, khiến địch tổn thất nặng nề.</p>
+                                <p>Ta mở rộng tấn công các cứ điểm trung tâm như: C1, D1, E1, A1, khiến địch tổn thất
+                                    nặng nề.</p>
                                 <div class="phase-result">
                                     <div class="result-icon">✓</div>
-                                    <span>Ta bao vây chặt, khống chế sân bay Mường Thanh – đường tiếp tế chính của Pháp.</span>
+                                    <span>Ta bao vây chặt, khống chế sân bay Mường Thanh – đường tiếp tế chính của
+                                        Pháp.</span>
                                 </div>
                             </div>
                         </div>
@@ -266,7 +296,8 @@
                                 <p>Tổng công kích toàn diện, đánh vào sở chỉ huy, cụm trung tâm</p>
                                 <div class="phase-result victory">
                                     <div class="result-icon">🏆</div>
-                                    <span><strong>Ngày 7/5/1954:</strong> Bắt sống tướng De Castries và toàn bộ Bộ chỉ huy Pháp. Toàn bộ Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt</span>
+                                    <span><strong>Ngày 7/5/1954:</strong> Bắt sống tướng De Castries và toàn bộ Bộ chỉ
+                                        huy Pháp. Toàn bộ Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt</span>
                                 </div>
                             </div>
                         </div>
@@ -313,10 +344,13 @@
                 </div>
                 <div class="results-text">
                     <ul>
-                        <li>Tiêu diệt hoàn toàn 16.200 quân Pháp (bắt sống 10.863, tiêu diệt và làm bị thương phần còn lại).</li>
+                        <li>Tiêu diệt hoàn toàn 16.200 quân Pháp (bắt sống 10.863, tiêu diệt và làm bị thương phần còn
+                            lại).</li>
                         <li>Phá tan kế hoạch Nava – chiến lược quân sự cuối cùng của Pháp tại Đông Dương.</li>
-                        <li>Bắt sống toàn bộ Bộ chỉ huy địch tại chiến trường Tây Bắc, trong đó có Tướng De Castries.</li>
-                        <li>Tạo điều kiện thuận lợi buộc Pháp phải ngồi vào bàn đàm phán tại Hội nghị Genève (1954).</li>
+                        <li>Bắt sống toàn bộ Bộ chỉ huy địch tại chiến trường Tây Bắc, trong đó có Tướng De Castries.
+                        </li>
+                        <li>Tạo điều kiện thuận lợi buộc Pháp phải ngồi vào bàn đàm phán tại Hội nghị Genève (1954).
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -334,7 +368,7 @@
                     <div class="significance-star">★</div>
                 </div>
             </div>
-            
+
             <!-- Vietnam Significance Block -->
             <div class="significance-block">
                 <div class="significance-image-container">
@@ -344,12 +378,13 @@
                     <h3 class="significance-section-title">Đối với Việt Nam</h3>
                     <div class="significance-text-box">
                         <p>Đỉnh cao của nghệ thuật chiến tranh nhân dân và quyết tâm toàn dân đánh giặc.</p>
-                        <p>Khẳng định tài lãnh đạo của Đảng Cộng sản Việt Nam, đặc biệt là tài cầm quân của Đại tướng Võ Nguyên Giáp.</p>
+                        <p>Khẳng định tài lãnh đạo của Đảng Cộng sản Việt Nam, đặc biệt là tài cầm quân của Đại tướng Võ
+                            Nguyên Giáp.</p>
                         <p>Chấm dứt 9 năm kháng chiến trường kỳ chống Pháp, mở đường cho hòa bình tại miền Bắc.</p>
                     </div>
                 </div>
             </div>
-            
+
             <!-- World Significance Block -->
             <div class="significance-block reverse">
                 <div class="significance-image-container">
@@ -358,46 +393,112 @@
                 <div class="significance-content-container">
                     <h3 class="significance-section-title">Đối với thế giới</h3>
                     <div class="significance-text-box">
-                        <p>Đòn giáng mạnh vào chủ nghĩa thực dân Pháp, góp phần giải thể hệ thống thuộc địa toàn cầu.</p>
+                        <p>Đòn giáng mạnh vào chủ nghĩa thực dân Pháp, góp phần giải thể hệ thống thuộc địa toàn cầu.
+                        </p>
                         <p>Truyền cảm hứng cho phong trào giải phóng dân tộc tại châu Á – châu Phi – Mỹ Latin.</p>
-                        <p>Đánh dấu thất bại đầu tiên của một cường quốc thực dân trước một dân tộc thuộc địa bằng chiến tranh nhân dân.</p>
+                        <p>Đánh dấu thất bại đầu tiên của một cường quốc thực dân trước một dân tộc thuộc địa bằng chiến
+                            tranh nhân dân.</p>
                     </div>
                 </div>
-                
+
             </div>
         </section>
 
         <!-- Quotes Section -->
-        <section class="quotes-section">
-            <div class="quote-item">
-                <div class="quote-image">
+        <section class="content-section">
+
+            <!-- Quote Block 1: Ho Chi Minh -->
+            <div class="quote-block">
+                <div class="quote-image-container">
                     <img src="images/v0_5009.png" alt="Chủ tịch Hồ Chí Minh">
                 </div>
-                <blockquote>
-                    "Chiến thắng Điện Biên Phủ lừng lẫy năm châu, chấn động địa cầu"
-                </blockquote>
-                <cite>Chủ tịch Hồ Chí Minh</cite>
-            </div>
-            
-            <div class="quote-item">
-                <blockquote>
-                    "Chúng ta không đánh là thắng, mà đánh để chắc thắng"
-                </blockquote>
-                <cite>Đại tướng Võ Nguyên Giáp</cite>
-            </div>
-            
-            <div class="quote-item">
-                <div class="quote-image">
-                    <img src="images/v0_5021.png" alt="Báo chí quốc tế">
+                <div class="quote-content-container">
+                    <div class="quote-text-box">
+                        <p>Chiến thắng Điện Biên Phủ lừng lẫy năm châu, chấn động địa cầu</p>
+                    </div>
+                    <h3 class="quote-section-title">Chủ tịch Hồ Chí Minh</h3>
                 </div>
-                <blockquote>
-                    "Điện Biên Phủ là một Verdun của người da vàng đánh bại người da trắng"
-                </blockquote>
-                <cite>Báo chí Pháp</cite>
+            </div>
+
+            <!-- Quote Block 2: Vo Nguyen Giap -->
+            <div class="quote-block reverse">
+                <div class="quote-image-container">
+                    <img src="images/v0_5021.png" alt="Đại tướng Võ Nguyên Giáp">
+                </div>
+                <div class="quote-content-container">
+                    <div class="quote-text-box">
+                        <p>Chúng ta không đánh là thắng, mà đánh để chắc thắng</p>
+                    </div>
+                    <h3 class="quote-section-title">Đại tướng Võ Nguyên Giáp</h3>
+
+                </div>
             </div>
         </section>
 
-            
+        <!-- Final Quote Section - Báo chí Pháp -->
+        <section class="final-quote-section">
+            <div class="final-quote-container">
+                <div class="final-quote-content">
+                    <div class="final-quote-marks opening">❝</div>
+                    <blockquote class="final-quote-text">
+                        Điện Biên Phủ là một Verdun của người da vàng đánh bại người da trắng
+                    </blockquote>
+                    <div class="final-quote-marks closing">❞</div>
+                    <cite class="final-quote-author">Báo chí Pháp</cite>
+                </div>
+            </div>
+        </section>
+
+        <!-- Completion Section -->
+        <section class="completion-section">
+            <div class="completion-container">
+                <a href="course-complete.html" class="completion-btn" style="text-decoration: none;">Hoàn thành bài học</a>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Make header visible when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.course-header');
+            if (header) {
+                setTimeout(() => {
+                    header.classList.add('header-visible');
+                }, 100);
+            }
+
+            // Mobile menu toggle
+            const mobileToggle = document.querySelector('.course-mobile-menu-toggle');
+            const navMenu = document.querySelector('.course-nav-menu');
+            const authButtons = document.querySelector('.course-auth-buttons');
+
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function() {
+                    mobileToggle.classList.toggle('active');
+                    navMenu.classList.toggle('mobile-active');
+                    if (authButtons) {
+                        authButtons.classList.toggle('mobile-active');
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking on nav links
+            const navLinks = document.querySelectorAll('.course-nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mobileToggle && navMenu) {
+                        mobileToggle.classList.remove('active');
+                        navMenu.classList.remove('mobile-active');
+                        if (authButtons) {
+                            authButtons.classList.remove('mobile-active');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
