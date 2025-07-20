@@ -95,7 +95,7 @@ body {
 }
 
 .character-image {
-    width: 200px;
+    width: 400px;
     height: auto;
     animation: characterBounce 2s ease-in-out infinite;
 }
@@ -183,15 +183,15 @@ body {
 }
 
 .btn-continue {
-    background: #f39c12;
+    background: #FCC34A;
     color: #333;
-    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+    box-shadow: 0 4px 15px rgba(252, 195, 74, 0.3);
 }
 
 .btn-continue:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
-    background: #e67e22;
+    box-shadow: 0 6px 20px rgba(252, 195, 74, 0.4);
+    background: #f0b73a;
 }
 
 .btn-home {
