@@ -709,9 +709,6 @@ img.loaded {
     margin: 0 auto;
 }
 
-.achievements-text {
-    margin-bottom: 80px;
-}
 
 .achievements-title {
     font-size: 50px;
@@ -721,10 +718,10 @@ img.loaded {
 }
 
 .achievements-description {
-    font-size: 20px;
+    font-size: 24px;
     color: #d62829;
     line-height: 1.6;
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -785,11 +782,10 @@ img.loaded {
 .feedback-header .btn {
     margin-top: 20px;
     background-color: white;
-    color: #d62829;
+    color: #262626;
     border: 2px solid white;
     padding: 10px 24px;
-    border-radius: 25px;
-    font-weight: 600;
+    font-weight: 400;
     transition: all 0.3s ease;
 }
 
@@ -846,6 +842,12 @@ img.loaded {
     gap: 15px;
 }
 
+.author-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .author-avatar {
     width: 50px;
     height: 50px;
@@ -868,6 +870,13 @@ img.loaded {
 .author-name {
     font-weight: 600;
     color: #333;
+    font-size: 16px;
+}
+
+.author-job {
+    font-weight: 600;
+    color: #d62829;
+    font-size: 14px;
 }
 
 .read-more {

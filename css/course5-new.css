@@ -770,62 +770,170 @@ body {
     font-size: 18px;
 }
 
-/* Campaign Timeline */
-.campaign-timeline {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+/* Campaign Timeline - Design matching Causes section */
+.campaign-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
 }
 
-.campaign-phase {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    text-align: center;
+.campaign-title-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.phase-header {
-    margin-bottom: 20px;
-}
-
-.phase-number {
-    display: block;
-    font-size: 28px;
-    font-weight: bold;
+.campaign-star {
+    font-size: 100px;
     color: #fcc24a;
-    background: #d62829;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 1;
 }
 
-.phase-date {
-    font-size: 16px;
-    font-weight: 600;
-    color: #666;
+.campaign-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #d62829;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
 }
 
-.phase-image {
-    margin: 20px 0;
+.campaign-timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0;
 }
 
-.phase-image img {
+.timeline-container {
+    position: relative;
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
 }
 
-.phase-result,
-.phase-description {
-    font-size: 14px;
-    line-height: 1.6;
-    text-align: justify;
-    color: #555;
+/* Timeline vertical line - Yellow column */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 65px;
+    background: #FCC24A;
+    transform: translateX(-50%);
+    z-index: 1;
 }
 
-/* Results Section */
+/* Campaign phases */
+.campaign-phase {
+    position: relative;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Left side phases - content on left, image on right of timeline */
+.phase-left {
+    justify-content: flex-start;
+}
+
+.phase-left .phase-layout {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.phase-left .phase-content-left {
+    flex: 0 0 45%;
+    margin-right: auto;
+    padding-right: 30px;
+}
+
+.phase-left .phase-image-right {
+    flex: 0 0 45%;
+    margin-left: auto;
+    padding-left: 30px;
+}
+
+/* Phase title styling - positioned over timeline */
+.campaign-phase {
+    position: relative;
+}
+
+.phase-title-above {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    text-align: right;
+    background: transparent;
+    z-index: 10;
+    padding: 10px 15px;
+    width: 120px;
+}
+
+.phase-number-above {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.phase-date-above {
+    display: block;
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Results Section - Design matching other sections */
+.results-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+
+.results-title-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.results-star {
+    font-size: 100px;
+    color: #fcc24a;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 1;
+}
+
+.results-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #d62829;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
 .results-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -863,6 +971,43 @@ body {
 }
 
 /* Significance Section */
+/* Significance Section - Design matching other sections */
+.significance-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+
+.significance-title-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.significance-star {
+    font-size: 100px;
+    color: #fcc24a;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 1;
+}
+
+.significance-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #d62829;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
 .significance-content {
     display: grid;
     grid-template-columns: 1fr 1fr;

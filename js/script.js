@@ -236,7 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
             animationTriggered = true;
             
             statNumbers.forEach(stat => {
-                const finalValue = parseInt(stat.textContent.replace(/,/g, ''));
+                const originalText = stat.textContent;
+                const hasPlusSign = originalText.includes('+');
+                const finalValue = parseInt(originalText.replace(/[,+]/g, ''));
                 let currentValue = 0;
                 const increment = finalValue / 50;
                 
@@ -248,7 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         clearInterval(counter);
                     }
                     
-                    stat.textContent = Math.floor(currentValue).toLocaleString();
+                    const formattedNumber = Math.floor(currentValue).toLocaleString();
+                    stat.textContent = hasPlusSign ? formattedNumber + '+' : formattedNumber;
                 }, 30);
             });
         }
