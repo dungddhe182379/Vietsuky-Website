@@ -236,6 +236,56 @@ class AvatarCustomizer {
         // Also randomize the character avatar
         this.randomizeCharacterAvatar();
     }
+    
+    // Method to show result screen
+    showResultScreen() {
+        const name = document.getElementById('avatar-name').value.trim();
+        if (!name) {
+            alert('Vui lòng nhập tên của bạn!');
+            return;
+        }
+        
+        // Hide customization section
+        const customizationSection = document.getElementById('customization-section');
+        const resultSection = document.getElementById('result-section');
+        
+        customizationSection.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+        
+        // Update greeting with name
+        const greeting = document.getElementById('greeting');
+        greeting.textContent = `Xin chào, [${name}]`;
+        
+        // Copy avatar to result section
+        this.displayFinalAvatar();
+    }
+    
+    // Method to show customization screen
+    showCustomizationScreen() {
+        const customizationSection = document.getElementById('customization-section');
+        const resultSection = document.getElementById('result-section');
+        
+        resultSection.classList.add('hidden');
+        customizationSection.classList.remove('hidden');
+    }
+    
+    // Method to display final avatar in result section
+    displayFinalAvatar() {
+        const finalAvatarContainer = document.querySelector('.final-avatar-container');
+        
+        // Clear existing content
+        finalAvatarContainer.innerHTML = '';
+        
+        // Create final avatar image
+        const finalAvatar = document.createElement('img');
+        finalAvatar.src = `images/character/${this.currentCharacterAvatar}`;
+        finalAvatar.alt = 'Final Avatar';
+        finalAvatar.style.width = '100%';
+        finalAvatar.style.height = '100%';
+        finalAvatar.style.objectFit = 'contain';
+        
+        finalAvatarContainer.appendChild(finalAvatar);
+    }
 }
 
 // Initialize the avatar customizer when the page loads
@@ -244,6 +294,40 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load saved state if available
     customizer.loadAvatarState();
+    
+    // Button event listeners
+    const btnComplete = document.getElementById('btn-complete');
+    const btnBack = document.getElementById('btn-back');
+    const btnEditCharacter = document.getElementById('btn-edit-character');
+    const btnStartLesson = document.getElementById('btn-start-lesson');
+    
+    if (btnComplete) {
+        btnComplete.addEventListener('click', () => {
+            customizer.showResultScreen();
+        });
+    }
+    
+    if (btnBack) {
+        btnBack.addEventListener('click', () => {
+            // Handle back action (you can navigate to previous page)
+            window.history.back();
+        });
+    }
+    
+    if (btnEditCharacter) {
+        btnEditCharacter.addEventListener('click', () => {
+            customizer.showCustomizationScreen();
+        });
+    }
+    
+    if (btnStartLesson) {
+        btnStartLesson.addEventListener('click', () => {
+            // Handle start lesson action (navigate to lesson page)
+            alert('Bắt đầu bài học!');
+            // You can add navigation to lesson page here
+            // window.location.href = 'lesson.html';
+        });
+    }
     
     // Add randomize functionality (you can add a button for this)
     window.randomizeAvatar = () => customizer.randomizeAvatar();

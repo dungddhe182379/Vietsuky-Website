@@ -19,36 +19,40 @@ body {
   background: #f8fafd;
   padding: 20px;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Avatar Preview Section - Left Side */
 .avatar-preview-section {
   width: 40%;
-  height: 100%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 40px 20px;
+  gap: 20px;
+  background-color: #EFEFEF;
+  border-radius: 30px;
 }
 
 .avatar-preview {
   width: 320px;
-  height: 420px;
-  background: #eeeeee;
+  height: 400px;
+  background: #EFEFEF;
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
   position: relative;
   overflow: hidden;
 }
 
 .avatar-container {
   position: relative;
-  width: 200px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +66,17 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.character-avatar {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 #avatar-trangphuc {
@@ -82,13 +97,14 @@ body {
 
 .name-input-section {
   width: 320px;
+  order: -1; /* Move to top */
 }
 
 .name-input {
   width: 100%;
   height: 50px;
-  background: rgba(252, 196, 74, 0.6);
-  border: none;
+  background: #D9D9D9;
+  border: 0px solid #d4a574;
   border-radius: 8px;
   padding: 0 20px;
   font-size: 16px;
@@ -104,7 +120,50 @@ body {
 }
 
 .name-input:focus {
-  background: rgba(252, 196, 74, 0.8);
+  background: #FBEED2;
+  border: 2px solid #000000;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  width: 320px;
+}
+
+.btn-back,
+.btn-complete {
+  flex: 1;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Be Vietnam', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-back {
+  background: #D62829;
+  color: white;
+}
+
+.btn-back:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.btn-complete {
+  background: #FCC54A;
+  color: white;
+}
+
+.btn-complete:hover {
+  background: #e0a800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
 }
 
 /* Customization Panel - Right Side */
@@ -287,9 +346,9 @@ body {
   .avatar-preview-section {
     width: 100%;
     height: auto;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     padding: 20px;
   }
   
@@ -302,13 +361,14 @@ body {
   .avatar-preview {
     width: 250px;
     height: 320px;
-    margin-bottom: 0;
   }
   
   .name-input-section {
     width: 250px;
-    display: flex;
-    align-items: center;
+  }
+  
+  .action-buttons {
+    width: 250px;
   }
 }
 
@@ -318,7 +378,6 @@ body {
   }
   
   .avatar-preview-section {
-    flex-direction: column;
     gap: 15px;
   }
   
@@ -328,6 +387,10 @@ body {
   }
   
   .name-input-section {
+    width: 220px;
+  }
+  
+  .action-buttons {
     width: 220px;
   }
   
@@ -349,5 +412,132 @@ body {
   .item-option img {
     width: 100px;
     height: 100px;
+  }
+}
+
+/* Hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* Customization Section */
+.customization-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+}
+
+/* Result Section */
+.result-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafd;
+}
+
+.result-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 40px;
+}
+
+.greeting {
+  font-size: 48px;
+  font-weight: bold;
+  color: #dc3545;
+  margin-bottom: 20px;
+  font-family: 'Be Vietnam', sans-serif;
+}
+
+.message {
+  font-size: 16px;
+  color: #303030;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.final-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.final-avatar-container {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-avatar-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.final-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn-start-lesson,
+.btn-edit-character {
+  width: 300px;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Be Vietnam', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-start-lesson {
+  background: #ffc107;
+  color: #303030;
+}
+
+.btn-start-lesson:hover {
+  background: #e0a800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.btn-edit-character {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-edit-character:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* Responsive for Result Section */
+@media (max-width: 768px) {
+  .greeting {
+    font-size: 36px;
+  }
+  
+  .message {
+    font-size: 16px;
+  }
+  
+  .final-avatar-container {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .btn-start-lesson,
+  .btn-edit-character {
+    width: 250px;
   }
 }
