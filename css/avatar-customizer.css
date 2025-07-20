@@ -26,7 +26,7 @@ body {
 /* Avatar Preview Section - Left Side */
 .avatar-preview-section {
   width: 40%;
-  height: 95%;
+  height: 94%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +35,7 @@ body {
   gap: 20px;
   background-color: #EFEFEF;
   border-radius: 30px;
+  margin-top: 20px;
 }
 
 .avatar-preview {
