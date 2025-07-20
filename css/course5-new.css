@@ -4,12 +4,17 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: #333;
     background-color: #f8fafd;
+    overflow-x: hidden; /* Prevent horizontal scroll during animations */
 }
 
 .container {
@@ -480,25 +485,15 @@ body {
 }
 
 /* Red star decoration */
-.hero-image::before {
-    content: "★";
-    position: absolute;
-    top: 10%;
-    right: 10%;
-    font-size: 60px;
-    color: #d62829;
-    transform: rotate(15deg);
-    z-index: 4;
-}
 
 .hero-image::after {
     content: "★";
     position: absolute;
     bottom: 20%;
     left: 5%;
-    font-size: 40px;
+    font-size: 500px;
     color: #d62829;
-    transform: rotate(-25deg);
+    transform: rotate(25deg);
     z-index: 4;
 }
 
@@ -555,28 +550,452 @@ body {
     margin: 0;
 }
 
+/* Global Sticky Progress Bar Container */
+.global-progress-container {
+    position: sticky;
+    top: 80px; /* Below the header */
+    z-index: 999;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    background: rgba(248, 250, 253, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(252, 194, 74, 0.2);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.1s ease;
+    visibility: hidden;
+}
+
+.global-progress-container.visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.global-progress-container.scrolling-down {
+    animation: slideInDown 0.1s ease forwards;
+}
+
+.global-progress-container.scrolling-up {
+    animation: slideInUp 0.1s ease forwards;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Hide animation when scrolling away */
+.global-progress-container.hiding {
+    animation: slideOut 0.1s ease forwards;
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Progress Bar Container - Now inside sticky container */
+.context-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
+    position: relative;
+}
+
 .context-progress-bar {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0;
-    height: 8px;
-    border-radius: 4px;
+    height: 12px;
+    border-radius: 8px;
     overflow: hidden;
-    min-width: 200px;
+    min-width: 300px;
+    max-width: 600px;
+    width: 80%;
+    background: rgba(221, 221, 221, 0.3);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(252, 194, 74, 0.2);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(252, 194, 74, 0.3);
+    padding: 8px;
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.global-progress-container.visible .context-progress-bar {
+    transform: scale(1);
+    opacity: 1;
+    animation: progressBarAppear 0.1s ease 0.05s both;
+}
+
+@keyframes progressBarAppear {
+    0% {
+        transform: scale(0.95) translateY(10px);
+        opacity: 0.8;
+        box-shadow: 
+            inset 0 2px 4px rgba(0, 0, 0, 0.1),
+            0 2px 8px rgba(252, 194, 74, 0.2);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        box-shadow: 
+            inset 0 2px 4px rgba(0, 0, 0, 0.1),
+            0 4px 16px rgba(252, 194, 74, 0.4);
+    }
+}
+
+.context-progress-bar:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.15),
+        0 4px 16px rgba(252, 194, 74, 0.4);
+}
+
+/* Progress Bar Inner Container */
+.context-progress-bar > div:not(.progress-percentage) {
+    height: 8px;
 }
 
 .progress-filled {
-    background: #fcc24a;
+    background: linear-gradient(135deg, 
+        #fcc24a 0%, 
+        #f0b73a 25%, 
+        #e8a828 50%, 
+        #f0b73a 75%, 
+        #fcc24a 100%);
+    background-size: 200% 100%;
     height: 100%;
-    width: 40%;
-    border-radius: 4px 0 0 4px;
+    width: 0%;
+    border-radius: 6px;
+    transition: width 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.progress-filled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent 100%);
+    animation: progressGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { transform: translateX(-100%); opacity: 0; }
+    50% { transform: translateX(100%); opacity: 1; }
+}
+
+.progress-filled::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -4px;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 8px rgba(252, 194, 74, 0.8),
+        0 0 16px rgba(252, 194, 74, 0.4);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
+    50% { transform: translateY(-50%) scale(1.2); opacity: 0.8; }
 }
 
 .progress-empty {
-    background: #ddd;
+    background: rgba(221, 221, 221, 0.2);
     height: 100%;
-    width: 60%;
-    border-radius: 0 4px 4px 0;
+    flex: 1;
+    border-radius: 0 6px 6px 0;
+    transition: all 0.3s ease;
+}
+
+/* Progress percentage display */
+.progress-percentage {
+    position: absolute;
+    top: -35px;
+    left: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fcc24a;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: left 0.8s ease 0.05s;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s ease forwards;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced glow effect when progress is active */
+.context-progress-bar.active {
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 0 20px rgba(252, 194, 74, 0.5),
+        0 0 40px rgba(252, 194, 74, 0.2);
+}
+
+.context-progress-bar.active .progress-filled {
+    box-shadow: 
+        0 0 10px rgba(252, 194, 74, 0.6),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design for Sticky Progress Bar */
+@media (max-width: 768px) {
+    .global-progress-container {
+        top: 70px;
+        padding: 8px 0;
+    }
+    
+    .context-progress-bar {
+        min-width: 280px;
+        width: 90%;
+        padding: 6px;
+    }
+    
+    .progress-percentage {
+        font-size: 12px;
+        top: -30px;
+    }
+}
+
+/* Scroll Animation Classes */
+.scroll-animate {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+.scroll-animate.animate-in {
+    opacity: 1;
+}
+
+.scroll-animate.animate-out {
+    opacity: 0;
+    transition-duration: 0.6s; /* Faster exit animation */
+}
+
+/* Slide animations from different directions */
+.slide-up {
+    transform: translateY(60px);
+}
+
+.slide-up.animate-in {
+    transform: translateY(0);
+}
+
+.slide-up.animate-out {
+    transform: translateY(-30px);
+}
+
+.slide-down {
+    transform: translateY(-60px);
+}
+
+.slide-down.animate-in {
+    transform: translateY(0);
+}
+
+.slide-down.animate-out {
+    transform: translateY(30px);
+}
+
+.slide-left {
+    transform: translateX(-60px);
+}
+
+.slide-left.animate-in {
+    transform: translateX(0);
+}
+
+.slide-left.animate-out {
+    transform: translateX(30px);
+}
+
+.slide-right {
+    transform: translateX(60px);
+}
+
+.slide-right.animate-in {
+    transform: translateX(0);
+}
+
+.slide-right.animate-out {
+    transform: translateX(-30px);
+}
+
+.fade-in {
+    opacity: 0;
+}
+
+.fade-in.animate-in {
+    opacity: 1;
+}
+
+.fade-in.animate-out {
+    opacity: 0;
+}
+
+.scale-in {
+    transform: scale(0.8);
+    opacity: 0;
+}
+
+.scale-in.animate-in {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.scale-in.animate-out {
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.rotate-in {
+    transform: rotate(-10deg) scale(0.8);
+    opacity: 0;
+}
+
+.rotate-in.animate-in {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+}
+
+.rotate-in.animate-out {
+    transform: rotate(5deg) scale(0.9);
+    opacity: 0;
+}
+
+/* Staggered animations with bidirectional support */
+.stagger-1 { 
+    transition-delay: 0.1s; 
+}
+.stagger-1.animate-out { 
+    transition-delay: 0.05s; 
+}
+
+.stagger-2 { 
+    transition-delay: 0.2s; 
+}
+.stagger-2.animate-out { 
+    transition-delay: 0.1s; 
+}
+
+.stagger-3 { 
+    transition-delay: 0.3s; 
+}
+.stagger-3.animate-out { 
+    transition-delay: 0.15s; 
+}
+
+.stagger-4 { 
+    transition-delay: 0.4s; 
+}
+.stagger-4.animate-out { 
+    transition-delay: 0.2s; 
+}
+
+.stagger-5 { 
+    transition-delay: 0.5s; 
+}
+.stagger-5.animate-out { 
+    transition-delay: 0.25s; 
+}
+
+/* Special animations for specific elements */
+.hero-section .scroll-animate {
+    transition-duration: 1s;
+}
+
+.phase-container .scroll-animate {
+    transition-duration: 0.6s;
+}
+
+.quote-block .scroll-animate {
+    transition-duration: 0.8s;
+}
+
+/* Enhanced animations for images */
+.scroll-animate img {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-animate.animate-in img {
+    transform: scale(1.02);
+}
+
+.scroll-animate.animate-out img {
+    transform: scale(0.95);
+}
+
+.scroll-animate.animate-in img:hover {
+    transform: scale(1.05);
 }
 
 .context-content-new {
@@ -1806,46 +2225,79 @@ body {
     padding: 0 20px;
 }
 
-.completion-btn {
+.completion-container p {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+/* Completion Button Styles */
+.completion-button-container {
+    margin-top: 40px;
+}
+
+.completion-button {
     background: linear-gradient(135deg, #FCC34A, #f0b73a);
     color: #333;
     border: none;
-    padding: 18px 50px;
-    border-radius: 12px;
+    padding: 20px 40px;
+    border-radius: 15px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(252, 194, 74, 0.3);
+    box-shadow: 0 8px 25px rgba(252, 194, 74, 0.3);
     position: relative;
     overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 250px;
+    justify-content: center;
 }
 
-.completion-btn::before {
+.completion-button::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
 }
 
-.completion-btn:hover::before {
+.completion-button:hover::before {
     left: 100%;
 }
 
-.completion-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(252, 194, 74, 0.4);
-    background: linear-gradient(135deg, #f0b73a, #FCC34A);
+.completion-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(252, 194, 74, 0.5);
+    background: linear-gradient(135deg, #f0b73a, #FFD54F);
 }
 
-.completion-btn:active {
-    transform: translateY(-1px);
+.completion-button:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.completion-button .button-text {
+    position: relative;
+    z-index: 2;
+}
+
+.completion-button .button-icon {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.completion-button:hover .button-icon {
+    transform: rotate(10deg) scale(1.1);
 }
 
 /* Responsive Design */
@@ -1864,9 +2316,16 @@ body {
         font-size: 16px;
     }
 
-    .completion-btn {
-        padding: 15px 35px;
+    .completion-button {
+        padding: 16px 30px;
         font-size: 16px;
+        min-width: 200px;
+        gap: 10px;
+    }
+
+    .completion-container p {
+        font-size: 20px;
+        margin-bottom: 30px;
     }
 }
 

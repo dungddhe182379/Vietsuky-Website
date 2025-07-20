@@ -47,14 +47,23 @@
         </div>
     </header>
 
+    <!-- Global Sticky Progress Bar -->
+    <div class="global-progress-container">
+        <div class="context-progress-bar" data-progress="0">
+            <div class="progress-filled"></div>
+            <div class="progress-empty"></div>
+            <div class="progress-percentage">0%</div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Hero Section -->
-        <section class="hero-section">
+        <section class="hero-section scroll-animate fade-in">
             <div class="hero-background"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <!-- Timeline on the left -->
-                <div class="hero-timeline">
+                <div class="hero-timeline scroll-animate slide-left stagger-1">
                     <div class="hero-timeline-header">
                         <div class="hero-timeline-years">
                             <span class="year-main">19</span>
@@ -81,7 +90,7 @@
                 </div>
 
                 <!-- Main title and number in center -->
-                <div class="hero-text">
+                <div class="hero-text scroll-animate slide-up stagger-2">
                     <h1 class="hero-title">ĐIỆN BIÊN PHỦ</h1>
                     <div class="hero-number-section">
                         <span class="hero-number">56</span>
@@ -94,19 +103,15 @@
                 </div>
 
                 <!-- Golden statue image on the right -->
-                <div class="hero-image">
+                <div class="hero-image scroll-animate slide-right stagger-3">
                     <img src="images/v0_4892.png" alt="Tượng đài Điện Biên Phủ">
                 </div>
             </div>
         </section>
 
         <!-- Historical Context Section -->
-        <section class="content-section">
-            <div class="context-header">
-                <div class="context-progress-bar">
-                    <div class="progress-filled"></div>
-                    <div class="progress-empty"></div>
-                </div>
+        <section class="content-section scroll-animate slide-up">
+            <div class="context-header scroll-animate fade-in stagger-1">
                 <div class="context-title-wrapper">
                     <h2 class="context-title">BỐI CẢNH LỊCH SỬ</h2>
                     <div class="context-star">★</div>
@@ -114,7 +119,7 @@
             </div>
 
             <div class="context-content-new">
-                <div class="context-column">
+                <div class="context-column scroll-animate slide-left stagger-2">
                     <h3 class="context-subtitle">Trong nước</h3>
                     <p>Sau Cách mạng Tháng Tám 1945, nước Việt Nam Dân chủ Cộng hòa được thành lập.</p>
                     <p>Pháp trở lại xâm lược năm 1946, buộc nhân dân ta bước vào cuộc kháng chiến toàn quốc chống thực
@@ -123,7 +128,7 @@
                         từng bước làm chủ chiến trường.</p>
                 </div>
 
-                <div class="context-column">
+                <div class="context-column scroll-animate slide-right stagger-3">
                     <h3 class="context-subtitle">Quốc tế</h3>
                     <p>Cách mạng Trung Quốc thắng lợi (1949) – mở đường tiếp tế chiến lược cho Việt Nam.</p>
                     <p>Mỹ can thiệp sâu, viện trợ tài chính – quân sự cho Pháp tại Đông Dương, biến chiến tranh xâm lược
@@ -136,7 +141,7 @@
         </section>
 
         <!-- Context Image Section -->
-        <section class="context-image-section">
+        <section class="context-image-section scroll-animate scale-in">
             <div class="context-image-background"></div>
             <div class="context-image-overlay"></div>
             <div class="context-image-content">
@@ -145,12 +150,8 @@
         </section>
 
         <!-- Campaign Causes Section -->
-        <section class="content-section">
-            <div class="causes-header">
-                <div class="context-progress-bar">
-                    <div class="progress-filled"></div>
-                    <div class="progress-empty"></div>
-                </div>
+        <section class="content-section scroll-animate slide-up">
+            <div class="causes-header scroll-animate fade-in stagger-1">
                 <div class="causes-title-wrapper">
                     <h2 class="causes-title">NGUYÊN NHÂN CHIẾN DỊCH</h2>
                     <div class="causes-star">★</div>
@@ -158,7 +159,7 @@
             </div>
 
             <div class="causes-content">
-                <div class="cause-text-section">
+                <div class="cause-text-section scroll-animate slide-left stagger-2">
                     <h3 class="cause-subtitle">Nguyên nhân từ phía Pháp</h3>
                     <div class="cause-text-content">
                         <p>Pháp xây dựng tập đoàn cứ điểm Điện Biên Phủ gồm 49 cứ điểm, chia thành 3 phân khu (Bắc,
@@ -169,13 +170,13 @@
                     </div>
                 </div>
 
-                <div class="cause-image-section">
+                <div class="cause-image-section scroll-animate scale-in stagger-3">
                     <div class="cause-image">
                         <img src="images/v0_4931.png" alt="Nguyên nhân từ phía Pháp">
                     </div>
                 </div>
 
-                <div class="cause-text-section">
+                <div class="cause-text-section scroll-animate slide-right stagger-4">
                     <h3 class="cause-subtitle">Nguyên nhân từ ta</h3>
                     <div class="cause-text-content">
                         <p>• Chủ trương của Bộ Chính trị và Tổng Quân ủy Trung ương: "Kiên quyết tiêu diệt toàn bộ quân
@@ -184,7 +185,7 @@
                     </div>
                 </div>
 
-                <div class="cause-image-section">
+                <div class="cause-image-section scroll-animate scale-in stagger-5">
                     <div class="cause-image">
                         <img src="images/v0_4935.png" alt="Nguyên nhân từ ta">
                     </div>
@@ -195,10 +196,6 @@
         <!-- Campaign Progress Section -->
         <section class="content-section">
             <div class="campaign-header">
-                <div class="context-progress-bar">
-                    <div class="progress-filled"></div>
-                    <div class="progress-empty"></div>
-                </div>
                 <div class="campaign-title-wrapper">
                     <h2 class="campaign-title">DIỄN BIẾN CHIẾN DỊCH</h2>
                     <div class="campaign-star">★</div>
@@ -207,7 +204,7 @@
 
             <div class="campaign-timeline-new">
                 <!-- Timeline Stats -->
-                <div class="timeline-stats">
+                <!-- <div class="timeline-stats">
                     <div class="stat-item">
                         <div class="stat-number">56</div>
                         <div class="stat-label">Ngày đêm</div>
@@ -216,10 +213,10 @@
                         <div class="stat-number">3</div>
                         <div class="stat-label">Đợt tấn công</div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Phase 1 -->
-                <div class="phase-container phase-1">
+                <div class="phase-container phase-1 scroll-animate slide-left">
                     <div class="phase-timeline">
                         <div class="phase-marker">
                             <div class="phase-number">01</div>
@@ -239,7 +236,7 @@
                             </div>
                         </div>
                         <div class="phase-visual">
-                            <div class="phase-image">
+                            <div class="phase-image scroll-animate scale-in stagger-2">
                                 <img src="images/v0_4956.png" alt="Đợt 1">
                                 <div class="image-overlay">
                                     <div class="overlay-text">Phá vòng ngoài</div>
@@ -250,7 +247,7 @@
                 </div>
 
                 <!-- Phase 2 -->
-                <div class="phase-container phase-2">
+                <div class="phase-container phase-2 scroll-animate slide-right">
                     <div class="phase-timeline">
                         <div class="phase-marker">
                             <div class="phase-number">02</div>
@@ -258,7 +255,7 @@
                     </div>
                     <div class="phase-content reverse">
                         <div class="phase-visual">
-                            <div class="phase-image">
+                            <div class="phase-image scroll-animate scale-in stagger-2">
                                 <img src="images/v0_4957.png" alt="Đợt 2">
                                 <div class="image-overlay">
                                     <div class="overlay-text">Khống chế trung tâm</div>
@@ -282,7 +279,7 @@
                 </div>
 
                 <!-- Phase 3 -->
-                <div class="phase-container phase-3">
+                <div class="phase-container phase-3 scroll-animate slide-left">
                     <div class="phase-timeline">
                         <div class="phase-marker">
                             <div class="phase-number">03</div>
@@ -293,16 +290,16 @@
                             <div class="phase-title">Đợt 3: Tổng công kích</div>
                             <div class="phase-date">1 – 7/5/1954</div>
                             <div class="phase-description">
-                                <p>Tổng công kích toàn diện, đánh vào sở chỉ huy, cụm trung tâm</p>
+                                <p>Ta tổng công kích toàn bộ Tập đoàn cứ điểm.</p>
                                 <div class="phase-result victory">
                                     <div class="result-icon">🏆</div>
-                                    <span><strong>Ngày 7/5/1954:</strong> Bắt sống tướng De Castries và toàn bộ Bộ chỉ
-                                        huy Pháp. Toàn bộ Tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt</span>
+                                    <span><strong>Ngày 7/5/1954:</strong> ta đánh thẳng vào Sở chỉ huy địch, bắt sống
+                                        tướng De Castries và toàn bộ Bộ chỉ huy Pháp. Toàn bộ tập đoàn cứ điểm Điện Biên Phủ bị tiêu diệt.</span>
                                 </div>
                             </div>
                         </div>
                         <div class="phase-visual">
-                            <div class="phase-image victory-image">
+                            <div class="phase-image victory-image scroll-animate rotate-in stagger-2">
                                 <img src="images/v0_4960.png" alt="Đợt 3">
                                 <div class="image-overlay victory-overlay">
                                     <div class="overlay-text">CHIẾN THẮNG!</div>
@@ -313,7 +310,7 @@
                 </div>
 
                 <!-- Victory Banner -->
-                <div class="victory-banner">
+                <!-- <div class="victory-banner scroll-animate scale-in">
                     <div class="victory-content">
                         <div class="victory-icon">🎉</div>
                         <div class="victory-text">
@@ -322,27 +319,23 @@
                         </div>
                         <div class="victory-date">7/5/1954</div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
 
         <!-- Results Section -->
-        <section class="content-section">
-            <div class="results-header">
-                <div class="context-progress-bar">
-                    <div class="progress-filled"></div>
-                    <div class="progress-empty"></div>
-                </div>
+        <section class="content-section scroll-animate slide-up">
+            <div class="results-header scroll-animate fade-in stagger-1">
                 <div class="results-title-wrapper">
                     <h2 class="results-title">KẾT QUẢ CHIẾN DỊCH</h2>
                     <div class="results-star">★</div>
                 </div>
             </div>
             <div class="results-content">
-                <div class="results-image">
+                <div class="results-image scroll-animate slide-left stagger-2">
                     <img src="images/v0_4990.png" alt="Kết quả chiến dịch">
                 </div>
-                <div class="results-text">
+                <div class="results-text scroll-animate slide-right stagger-3">
                     <ul>
                         <li>Tiêu diệt hoàn toàn 16.200 quân Pháp (bắt sống 10.863, tiêu diệt và làm bị thương phần còn
                             lại).</li>
@@ -357,12 +350,8 @@
         </section>
 
         <!-- Significance Section -->
-        <section class="content-section">
-            <div class="significance-header">
-                <div class="context-progress-bar">
-                    <div class="progress-filled"></div>
-                    <div class="progress-empty"></div>
-                </div>
+        <section class="content-section scroll-animate slide-up">
+            <div class="significance-header scroll-animate fade-in stagger-1">
                 <div class="significance-title-wrapper">
                     <h2 class="significance-title">Ý NGHĨA CHIẾN DỊCH</h2>
                     <div class="significance-star">★</div>
@@ -370,11 +359,11 @@
             </div>
 
             <!-- Vietnam Significance Block -->
-            <div class="significance-block">
-                <div class="significance-image-container">
+            <div class="significance-block scroll-animate slide-left stagger-2">
+                <div class="significance-image-container scroll-animate scale-in stagger-3">
                     <img src="images/v0_4999.png" alt="Ý nghĩa với Việt Nam">
                 </div>
-                <div class="significance-content-container">
+                <div class="significance-content-container scroll-animate fade-in stagger-4">
                     <h3 class="significance-section-title">Đối với Việt Nam</h3>
                     <div class="significance-text-box">
                         <p>Đỉnh cao của nghệ thuật chiến tranh nhân dân và quyết tâm toàn dân đánh giặc.</p>
@@ -386,11 +375,11 @@
             </div>
 
             <!-- World Significance Block -->
-            <div class="significance-block reverse">
-                <div class="significance-image-container">
+            <div class="significance-block reverse scroll-animate slide-right stagger-5">
+                <div class="significance-image-container scroll-animate scale-in stagger-6">
                     <img src="images/v0_5000.png" alt="Ý nghĩa với thế giới">
                 </div>
-                <div class="significance-content-container">
+                <div class="significance-content-container scroll-animate fade-in stagger-7">
                     <h3 class="significance-section-title">Đối với thế giới</h3>
                     <div class="significance-text-box">
                         <p>Đòn giáng mạnh vào chủ nghĩa thực dân Pháp, góp phần giải thể hệ thống thuộc địa toàn cầu.
@@ -408,11 +397,11 @@
         <section class="content-section">
 
             <!-- Quote Block 1: Ho Chi Minh -->
-            <div class="quote-block">
-                <div class="quote-image-container">
+            <div class="quote-block scroll-animate slide-left">
+                <div class="quote-image-container scroll-animate scale-in stagger-2">
                     <img src="images/v0_5009.png" alt="Chủ tịch Hồ Chí Minh">
                 </div>
-                <div class="quote-content-container">
+                <div class="quote-content-container scroll-animate fade-in stagger-3">
                     <div class="quote-text-box">
                         <p>Chiến thắng Điện Biên Phủ lừng lẫy năm châu, chấn động địa cầu</p>
                     </div>
@@ -421,11 +410,11 @@
             </div>
 
             <!-- Quote Block 2: Vo Nguyen Giap -->
-            <div class="quote-block reverse">
-                <div class="quote-image-container">
+            <div class="quote-block reverse scroll-animate slide-right">
+                <div class="quote-image-container scroll-animate scale-in stagger-2">
                     <img src="images/v0_5021.png" alt="Đại tướng Võ Nguyên Giáp">
                 </div>
-                <div class="quote-content-container">
+                <div class="quote-content-container scroll-animate fade-in stagger-3">
                     <div class="quote-text-box">
                         <p>Chúng ta không đánh là thắng, mà đánh để chắc thắng</p>
                     </div>
@@ -436,9 +425,9 @@
         </section>
 
         <!-- Final Quote Section - Báo chí Pháp -->
-        <section class="final-quote-section">
+        <section class="final-quote-section scroll-animate fade-in">
             <div class="final-quote-container">
-                <div class="final-quote-content">
+                <div class="final-quote-content scroll-animate scale-in stagger-2">
                     <div class="final-quote-marks opening">❝</div>
                     <blockquote class="final-quote-text">
                         Điện Biên Phủ là một Verdun của người da vàng đánh bại người da trắng
@@ -450,9 +439,13 @@
         </section>
 
         <!-- Completion Section -->
-        <section class="completion-section">
+        <section class="completion-section scroll-animate slide-up">
             <div class="completion-container">
-                        <p>Chiến thắng Điện Biên Phủ lừng lẫy năm châu, chấn động địa cầu</p>
+                <div class="completion-button-container scroll-animate scale-in stagger-2">
+                    <button class="completion-button" onclick="window.location.href='course-complete.html'">
+                        <span class="button-text">Hoàn thành bài học</span>
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -460,7 +453,7 @@
 
     <script>
         // Make header visible when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const header = document.querySelector('.course-header');
             if (header) {
                 setTimeout(() => {
@@ -468,13 +461,186 @@
                 }, 100);
             }
 
+            // Single sticky progress bar animation on scroll
+            const progressBar = document.querySelector('.context-progress-bar');
+            const progressContainer = document.querySelector('.global-progress-container');
+            let lastScrollTop = 0;
+            let isProgressVisible = false;
+            let scrollThreshold = 200; // Show progress bar after 200px scroll
+
+            function calculateGlobalProgress() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollProgress = Math.min(scrollTop / documentHeight, 1);
+
+                // Determine scroll direction
+                const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
+                lastScrollTop = scrollTop;
+
+                // Show/hide progress bar based on scroll position
+                if (scrollTop > scrollThreshold && !isProgressVisible) {
+                    showProgressBar(scrollDirection);
+                } else if (scrollTop <= scrollThreshold && isProgressVisible) {
+                    hideProgressBar();
+                }
+
+                if (progressBar && isProgressVisible) {
+                    updateProgressBar(progressBar, scrollProgress);
+                }
+            }
+
+            function showProgressBar(direction) {
+                if (progressContainer && !isProgressVisible) {
+                    isProgressVisible = true;
+                    progressContainer.classList.remove('hiding');
+                    progressContainer.classList.add('visible');
+
+                    // Add direction-specific animation
+                    if (direction === 'down') {
+                        progressContainer.classList.add('scrolling-down');
+                        progressContainer.classList.remove('scrolling-up');
+                    } else {
+                        progressContainer.classList.add('scrolling-up');
+                        progressContainer.classList.remove('scrolling-down');
+                    }
+
+                    // Remove animation classes after animation completes
+                    setTimeout(() => {
+                        progressContainer.classList.remove('scrolling-down', 'scrolling-up');
+                    }, 400);
+                }
+            }
+
+            function hideProgressBar() {
+                if (progressContainer && isProgressVisible) {
+                    isProgressVisible = false;
+                    progressContainer.classList.add('hiding');
+                    progressContainer.classList.remove('visible', 'scrolling-down', 'scrolling-up');
+
+                    // Clean up classes after animation
+                    setTimeout(() => {
+                        progressContainer.classList.remove('hiding');
+                    }, 300);
+                }
+            }
+
+            function updateProgressBar(progressBar, progress) {
+                const progressFilled = progressBar.querySelector('.progress-filled');
+                const progressPercentage = progressBar.querySelector('.progress-percentage');
+                const percentage = Math.round(progress * 100);
+
+                // Update width with smooth animation
+                progressFilled.style.width = percentage + '%';
+
+                // Update percentage text
+                if (progressPercentage) {
+                    progressPercentage.textContent = percentage + '%';
+                    progressPercentage.style.left = `calc(${percentage}% - 15px)`;
+                }
+
+                // Add active class for enhanced effects
+                if (progress > 0.05) { // Start effects when 5% progress
+                    progressBar.classList.add('active');
+                } else {
+                    progressBar.classList.remove('active');
+                }
+
+                // Store current progress
+                progressBar.setAttribute('data-progress', percentage);
+            }
+
+            // Enhanced scroll listener with throttling
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        calculateGlobalProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Initial calculation
+            calculateGlobalProgress();
+
+            // Listen to scroll events
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', calculateGlobalProgress, { passive: true });
+
+            // Scroll Animation Observer with bidirectional support
+            const observerOptions = {
+                threshold: [0, 0.1, 0.5, 1], // Multiple thresholds for better control
+                rootMargin: '0px 0px -20px 0px' // Reduced margin for faster response
+            };
+
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const element = entry.target;
+                    
+                    if (entry.isIntersecting) {
+                        // Element is entering viewport - trigger enter animation
+                        element.classList.add('animate-in');
+                        element.classList.remove('animate-out');
+                    } else {
+                        // Element is leaving viewport - trigger exit animation
+                        element.classList.remove('animate-in');
+                        element.classList.add('animate-out');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all scroll-animate elements
+            const scrollElements = document.querySelectorAll('.scroll-animate');
+            scrollElements.forEach(el => {
+                scrollObserver.observe(el);
+            });
+
+            // Advanced scroll animation for special effects
+            function handleAdvancedScrollAnimations() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Parallax effect for hero elements
+                const heroTimeline = document.querySelector('.hero-timeline');
+                const heroImage = document.querySelector('.hero-image');
+
+                if (heroTimeline && heroImage) {
+                    const parallaxSpeed = scrollTop * 0.5;
+                    heroTimeline.style.transform = `translateY(${parallaxSpeed * 0.3}px)`;
+                    heroImage.style.transform = `translateY(${parallaxSpeed * -0.2}px)`;
+                }
+
+                // Floating animation for stars
+                const stars = document.querySelectorAll('.context-star, .causes-star, .campaign-star, .results-star, .significance-star');
+                stars.forEach((star, index) => {
+                    const floatOffset = Math.sin(Date.now() * 0.001 + index) * 3;
+                    star.style.transform = `translate(-50%, -50%) translateY(${floatOffset}px) rotate(${floatOffset * 2}deg)`;
+                });
+            }
+
+            // Enhanced scroll with animation effects
+            function onScrollWithAnimations() {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        calculateGlobalProgress();
+                        handleAdvancedScrollAnimations();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Replace the scroll listener with enhanced version
+            window.removeEventListener('scroll', onScroll);
+            window.addEventListener('scroll', onScrollWithAnimations, { passive: true });
+
             // Mobile menu toggle
             const mobileToggle = document.querySelector('.course-mobile-menu-toggle');
             const navMenu = document.querySelector('.course-nav-menu');
             const authButtons = document.querySelector('.course-auth-buttons');
 
             if (mobileToggle && navMenu) {
-                mobileToggle.addEventListener('click', function() {
+                mobileToggle.addEventListener('click', function () {
                     mobileToggle.classList.toggle('active');
                     navMenu.classList.toggle('mobile-active');
                     if (authButtons) {
@@ -486,7 +652,7 @@
             // Close mobile menu when clicking on nav links
             const navLinks = document.querySelectorAll('.course-nav-link');
             navLinks.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function () {
                     if (mobileToggle && navMenu) {
                         mobileToggle.classList.remove('active');
                         navMenu.classList.remove('mobile-active');
