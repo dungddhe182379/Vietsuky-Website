@@ -259,4 +259,85 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle window resize
     window.addEventListener('resize', handleResize);
+
+    // Image Expansion Effect
+    function initImageExpansionEffect() {
+        const courseCards = document.querySelectorAll('.course-card');
+        const overlay = document.getElementById('imageExpansionOverlay');
+        const expansionImage = document.getElementById('expansionImage');
+
+        courseCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get course link
+                const courseLink = this.getAttribute('data-course-link');
+                if (!courseLink) return;
+
+                // Get card image and its position
+                const cardImage = this.querySelector('.card-image img');
+                const cardRect = this.getBoundingClientRect();
+                const cardImageRect = cardImage.getBoundingClientRect();
+
+                // Add click feedback
+                this.classList.add('clicked');
+                setTimeout(() => this.classList.remove('clicked'), 150);
+
+                // Start expansion effect
+                startImageExpansion(cardImage.src, courseLink, cardImageRect);
+            });
+        });
+
+        function startImageExpansion(imageSrc, courseLink, startRect) {
+            // Set image source and initial position/size
+            expansionImage.src = imageSrc;
+            expansionImage.style.left = startRect.left + 'px';
+            expansionImage.style.top = startRect.top + 'px';
+            expansionImage.style.width = startRect.width + 'px';
+            expansionImage.style.height = startRect.height + 'px';
+
+            // Show overlay
+            overlay.classList.add('active');
+
+            // Start expansion animation
+            setTimeout(() => {
+                expansionImage.classList.add('expanding');
+            }, 50);
+
+            // Expand to full screen
+            setTimeout(() => {
+                expansionImage.classList.add('full-screen');
+            }, 200);
+
+            // Fade out and navigate
+            setTimeout(() => {
+                expansionImage.classList.add('fade-out');
+                
+                // Navigate after fade out
+                setTimeout(() => {
+                    window.location.href = courseLink;
+                }, 800);
+            }, 1200);
+        }
+
+        // Reset function (optional - for escape key)
+        function resetExpansion() {
+            overlay.classList.remove('active');
+            expansionImage.classList.remove('expanding', 'full-screen', 'fade-out');
+            setTimeout(() => {
+                expansionImage.src = '';
+                expansionImage.style.cssText = '';
+            }, 300);
+        }
+
+        // Escape key to cancel
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                resetExpansion();
+            }
+        });
+    }
+
+    // Initialize image expansion effect
+    initImageExpansionEffect();
 });
