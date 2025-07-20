@@ -254,7 +254,7 @@ class AvatarCustomizer {
         
         // Update greeting with name
         const greeting = document.getElementById('greeting');
-        greeting.textContent = `Xin chào, [${name}]`;
+        greeting.innerHTML = `Xin chào, <br> [${name}]`;
         
         // Copy avatar to result section
         this.displayFinalAvatar();
