@@ -370,16 +370,29 @@ body {
 /* Historical Context - New Design */
 .context-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     margin-bottom: 40px;
     justify-content: center;
 }
 
+.context-title-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .context-star {
-    font-size: 40px;
+    font-size: 100px;
     color: #fcc24a;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    position: absolute;
+    top: 25%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 1;
 }
 
 .context-title {
@@ -423,7 +436,6 @@ body {
     background: #f8f9fa;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .context-column {
@@ -438,8 +450,21 @@ body {
     color: #d62829;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #fcc24a;
     text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.context-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: #d62829;
 }
 
 .context-column p {
@@ -454,60 +479,295 @@ body {
 .context-image-new {
     text-align: center;
     margin-top: 20px;
+    width: 100%;
+    max-width: 1520px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .context-image-new img {
     max-width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    border: 3px solid #fcc24a;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-/* Campaign Causes */
+/* Context Image Section - Similar to Hero Section */
+.context-image-section {
+    width: 100%;
+    max-width: 1520px;
+    height: 400px; /* Có thể điều chỉnh chiều cao như hero-section */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 40px auto;
+}
+
+.context-image-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.context-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.context-image-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.context-image-content img {
+    width: 82%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Campaign Causes - Design matching Figma */
+.causes-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+
+.causes-title-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.causes-star {
+    font-size: 100px;
+    color: #fcc24a;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 1;
+}
+
+.causes-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #d62829;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
 .causes-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-rows: auto auto;
+    gap: 40px;
+    margin-bottom: 40px;
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 15px;
 }
 
-.cause-item h3 {
+.cause-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.cause-text-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 300px;
+}
+
+.cause-image-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 300px;
+}
+
+/* Dòng 1: Text bên trái, Image bên phải */
+.cause-text-section:first-child {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.cause-image-section:first-of-type {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* Dòng 2: Image bên trái, Text bên phải */
+.cause-image-section:last-of-type {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.cause-text-section:last-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.cause-column:first-child::before {
+    content: "★";
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    font-size: 60px;
+    color: #d62829;
+    transform: rotate(-25deg);
+    z-index: 5;
+}
+
+.cause-column:last-child::after {
+    content: "★";
+    position: absolute;
+    bottom: -10px;
+    right: -20px;
+    font-size: 60px;
+    color: #d62829;
+    transform: rotate(15deg);
+    z-index: 5;
+}
+
+.cause-subtitle {
     font-size: 24px;
     font-weight: bold;
     color: #d62829;
     margin-bottom: 20px;
+    padding-bottom: 10px;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.cause-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 29%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 2px;
+    background: #d62829;
 }
 
 .cause-image {
-    margin: 20px 0;
+    margin: 15px 0;
     text-align: center;
+    position: relative;
+    height: 280px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cause-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
 }
 
-.cause-item ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.cause-item li {
-    position: relative;
-    padding-left: 25px;
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-.cause-item li::before {
+/* Ngôi sao đỏ cho ảnh đầu tiên (góc phải dưới) - ảnh Nguyên nhân từ phía Pháp */
+.causes-content .cause-image-section:nth-child(2) .cause-image::after {
     content: "★";
+    position: absolute;
+    bottom: -40%;
+    right: -10%;
+    font-size: 150px;
+    color: #d62829;
+    transform: rotate(15deg);
+    z-index: 10;
+}
+
+/* Ngôi sao đỏ cho ảnh thứ hai (góc trái trên) - ảnh Nguyên nhân từ ta */
+.causes-content .cause-image-section:nth-child(4) .cause-image::before {
+    content: "★";
+    position: absolute;
+    top: -45%;
+    left: -10%;
+    font-size: 150px;
+    color: #d62829;
+    transform: rotate(-25deg);
+    z-index: 10;
+}
+
+.cause-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cause-text-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    color: #333;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.cause-column p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    color: #333;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.cause-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cause-column li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #333;
+}
+
+.cause-column li::before {
+    content: "•";
     position: absolute;
     left: 0;
     color: #d62829;
     font-weight: bold;
+    font-size: 18px;
 }
 
 /* Campaign Timeline */
@@ -731,219 +991,4 @@ cite {
 .complete-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .hero-section {
-        height: 700px;
-    }
-    
-    .hero-content {
-        height: 700px;
-        grid-template-columns: 250px 1fr 300px;
-        gap: 30px;
-        padding: 60px 30px 40px;
-    }
-    
-    .hero-image {
-        height: 620px;
-    }
-    
-    .hero-title {
-        font-size: 100px;
-    }
-    
-    .hero-number {
-        font-size: 160px;
-    }
-    
-    .hero-descriptions span {
-        font-size: 24px;
-    }
-    
-    .hero-subtitle-bottom {
-        font-size: 28px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .hero-section {
-        height: 600px;
-    }
-    
-    .hero-content {
-        height: 600px;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-        text-align: center;
-        gap: 40px;
-        padding: 40px 20px;
-    }
-    
-    .hero-image {
-        height: 400px;
-    }
-    
-    .hero-timeline {
-        order: 3;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 20px;
-    }
-    
-    .hero-timeline-dates {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-    }
-    
-    .hero-timeline-date {
-        border-left: none;
-        border-bottom: 2px solid #fcc24a;
-        padding-left: 0;
-        padding-bottom: 5px;
-        font-size: 12px;
-    }
-    
-    .hero-text {
-        order: 1;
-    }
-    
-    .hero-image {
-        order: 2;
-    }
-    
-    .hero-title {
-        font-size: 80px;
-    }
-    
-    .hero-number {
-        font-size: 120px;
-    }
-    
-    .hero-descriptions span {
-        font-size: 20px;
-    }
-    
-    .hero-subtitle-bottom {
-        font-size: 24px;
-    }
-    
-    .campaign-timeline {
-        grid-template-columns: 1fr;
-    }
-    
-    .context-content,
-    .causes-content,
-    .significance-content,
-    .results-content {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-section {
-        height: 500px;
-    }
-    
-    .hero-content {
-        height: 500px;
-    }
-    
-    .hero-image {
-        height: 300px;
-    }
-    
-    .navigation {
-        display: none;
-    }
-    
-    .hero-title {
-        font-size: 60px;
-    }
-    
-    .hero-number {
-        font-size: 80px;
-    }
-    
-    .hero-descriptions span {
-        font-size: 16px;
-    }
-    
-    .hero-subtitle-bottom {
-        font-size: 20px;
-    }
-    
-    .hero-timeline-years {
-        font-size: 36px;
-    }
-    
-    .hero-timeline-title {
-        font-size: 14px;
-    }
-    
-    .section-title {
-        font-size: 32px;
-    }
-    
-    blockquote {
-        font-size: 18px;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        gap: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-section {
-        height: 450px;
-    }
-    
-    .hero-content {
-        height: 450px;
-        padding: 20px 15px;
-    }
-    
-    .hero-image {
-        height: 250px;
-    }
-    
-    .hero-title {
-        font-size: 48px;
-    }
-    
-    .hero-number {
-        font-size: 60px;
-    }
-    
-    .hero-descriptions span {
-        font-size: 14px;
-    }
-    
-    .hero-subtitle-bottom {
-        font-size: 16px;
-    }
-    
-    .hero-timeline {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .hero-timeline-dates {
-        justify-content: center;
-        gap: 8px;
-    }
-    
-    .campaign-phase {
-        padding: 20px;
-    }
-    
-    .quote-item {
-        padding: 0 40px;
-    }
 }
